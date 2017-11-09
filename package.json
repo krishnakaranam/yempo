@@ -1,0 +1,36 @@
+{
+  "name": "node-authentication",
+  "main": "server.js",
+  "dependencies": {
+    "express": "latest",
+    "ejs": "latest",
+    "mongoose": "latest",
+    "passport": "latest",
+    "passport-local": "latest",
+    "passport-facebook": "latest",
+    "passport-twitter": "latest",
+    "passport-google-oauth": "latest",
+    "connect-flash": "latest",
+    "bcrypt-nodejs": "latest",
+    "morgan": "latest",
+    "body-parser": "latest",
+    "cookie-parser": "latest",
+    "method-override": "latest",
+    "express-session": "latest"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "Using Passport to authenticate users locally, with Facebook, Twitter, and Google.",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francis-mwakidoshi/Node-Authentication.git"
+  },
+  "author": "francis mwakidoshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/francis-mwakidoshi/Node-Authentication/issues"
+  },
+  "homepage": "https://github.com/francis-mwakidoshi/Node-Authentication#readme"
+}
