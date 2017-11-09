@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Node Authentication</title>
+  <title>Yempo</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
   <style>
@@ -98,36 +98,6 @@
 
         </div>
       </div>
-
-      <!-- GOOGLE INFORMATION -->
-      <div class="col-sm-6">
-        <div class="well">
-          <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google+</h3>
-
-          <% if (user.google.token) { %>
-            <p>
-              <strong>id</strong>:
-              <%= user.google.id %><br>
-                <strong>token</strong>:
-                <%= user.google.token %><br>
-                  <strong>email</strong>:
-                  <%= user.google.email %><br>
-                    <strong>name</strong>:
-                    <%= user.google.name %>
-            </p>
-
-            <a href="/unlink/google" class="btn btn-danger">Unlink</a>
-            <% } else { %>
-              <a href="/connect/google" class="btn btn-danger">Connect Google</a>
-              <% } %>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center">
-      <p>A demo by <a href="https://github.com/francis-mwakidoshi">Francis Mwakidoshi</a>.</p>
-    </div>
 
   </div>
 </body>

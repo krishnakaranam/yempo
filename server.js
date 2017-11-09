@@ -1,10 +1,7 @@
 // server.js
-
-// set up ======================================================================
-// get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 8080;
+var port     = process.env.PORT || 3000;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -17,21 +14,21 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect(configDB.url); // connect to mongodb database
 
-require('./config/passport')(passport); // pass passport for configuration
+require('./config/passport')(passport); // passing passport for configuration
 
-// set up our express application
+// set up express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser.json()); // get information from html forms
+app.use(bodyParser.json()); // get information from front end
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('view engine', 'ejs'); // set up ejs for templating
+app.set('view engine', 'ejs'); // set up ejs for templating (temporary replacement to IONIC front end)
 
 // required for passport
 app.use(session({
-    secret: 'ilovescotchscotchyscotchscotch', // session secret
+    secret: 'krishnakaranam3732@gmail.com', // session secret
     resave: true,
     saveUninitialized: true
 }));
@@ -44,4 +41,4 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 // launch ======================================================================
 app.listen(port);
-console.log('The magic happens on port ' + port);
+console.log('yempo is active locally on port ' + port);

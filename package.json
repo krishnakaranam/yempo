@@ -1,5 +1,5 @@
 {
-  "name": "node-authentication",
+  "name": "yempo",
   "main": "server.js",
   "dependencies": {
     "express": "latest",
@@ -21,16 +21,16 @@
   "scripts": {
     "start": "node server.js"
   },
-  "description": "Using Passport to authenticate users locally, with Facebook, Twitter, and Google.",
+  "description": "Using Passport to authenticate users locally, with Facebook, Twitter.",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/francis-mwakidoshi/Node-Authentication.git"
+    "url": "git+https://github.com/krishnakaranam3732/yempo.git"
   },
-  "author": "francis mwakidoshi",
+  "author": "krishna karanam",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/francis-mwakidoshi/Node-Authentication/issues"
+    "url": "https://github.com/krishnakaranam3732/yempo/issues"
   },
-  "homepage": "https://github.com/francis-mwakidoshi/Node-Authentication#readme"
+  "homepage": "https://github.com/krishnakaranam3732/yempo#readme"
 }
