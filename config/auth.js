@@ -12,8 +12,8 @@ module.exports = {
     },
 
     'twitterAuth' : {
-        'consumerKey'        : '7WjFZXEH9Rgu31ojkOt8fzqJK',
-        'consumerSecret'     : 'BbekTHRAPHr3AZEEVPPGiy1PJA92ltRhAEFZUykCHVHXppt6DV',
+        'consumerKey'        : 'd8xfh5N7dCQKG89kZB10OUSin',
+        'consumerSecret'     : 'OHKq4wWgQg3pQjoFyHLDBY7EEbO0UCRupgQ6Re7OEQDpuBxje3',
         'callbackURL'        : 'https://karanam-saikrishna-webdev.herokuapp.com/auth/twitter/callback'
     }
 };

@@ -5,8 +5,8 @@
 // var config = require('./config.js');
 
 module.exports = {
-    consumer_key:         'dbyZBPutYs3THgqdEhI7CLEN1', 
-    consumer_secret:      'wBjYSWoowyGPCINqzgb7x0ygrp4qpJOnvgiEcmupU43ePtqkfv',
-    access_token:         '1478790870-q2BSkTaN4AZTLnDy9mTqRO5w5MQBUPzyAiSyPwO',
-    access_token_secret:  'm2e471W8vTbkt7mUnNxqOdhhQRsXSg93dxBit9eogLBrD'
+    consumer_key:         'd8xfh5N7dCQKG89kZB10OUSin', 
+    consumer_secret:      'OHKq4wWgQg3pQjoFyHLDBY7EEbO0UCRupgQ6Re7OEQDpuBxje3',
+    access_token:         '1478790870-dW36ujNkJiQpHVJatXsDwFFNDHoKPe941CI1PYK',
+    access_token_secret:  'skcLxRmDEbGRbiZ3vpRofLpBg745WaqqOCMZsS1wnOvxn'
   }
