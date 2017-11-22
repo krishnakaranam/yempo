@@ -20,7 +20,7 @@ var userSchema = mongoose.Schema({
         displayName  : String,
         username     : String
     }
-});
+}, {collection: 'User'});
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
