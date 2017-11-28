@@ -8,10 +8,10 @@ var twitterSchema = mongoose.Schema({
     id_str: {type: String, unique: true, required: true},
     name: {type: String},
     screen_name: {type: String},
-    followers_count: {type: double, default: 0},
-	friends_count: {type: double, default: 0},
-	favorites_count: {type: double, default: 0},
-	statuses_count: {type: double, default: 0},
+    followers_count: {type: Number, default: 0},
+	friends_count: {type: Number, default: 0},
+	favorites_count: {type: Number, default: 0},
+	statuses_count: {type: Number, default: 0},
 	created_at: {type: Date, default: new Date()},
     updated_at: {type: Date, default: new Date()}
 
