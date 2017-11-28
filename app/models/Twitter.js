@@ -18,12 +18,12 @@ var twitterSchema = mongoose.Schema({
 }, {collection: 'Twitter'});
 
 // getting all the follower list of a given userId
-twitterSchema.methods.findAllFollowers function(userId) {
+twitterSchema.methods.findAllFollowers = function(userId) {
     return find({'followerOf': userId});
 }
 
 // updating each follower of a given userId with most recent data
-twitterSchema.methods.updateFollower function(userId, twitterFollower) {
+twitterSchema.methods.updateFollower = function(userId, twitterFollower) {
     return findOneAndUpdate({followerOf: userId},{id_str: twitterFollower.id_str}, {$set: twitterFollower});
 }
 
