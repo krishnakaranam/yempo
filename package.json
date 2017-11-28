@@ -2,21 +2,22 @@
   "name": "yempo",
   "main": "server.js",
   "dependencies": {
-    "express": "latest",
-    "ejs": "latest",
-    "mongoose": "latest",
-    "passport": "latest",
-    "passport-local": "latest",
-    "passport-facebook": "latest",
-    "passport-twitter": "latest",
-    "passport-google-oauth": "latest",
-    "connect-flash": "latest",
     "bcrypt-nodejs": "latest",
-    "morgan": "latest",
     "body-parser": "latest",
+    "connect-flash": "latest",
     "cookie-parser": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "express-session": "latest",
     "method-override": "latest",
-    "express-session": "latest"
+    "mongoose": "latest",
+    "morgan": "latest",
+    "passport": "latest",
+    "passport-facebook": "latest",
+    "passport-google-oauth": "latest",
+    "passport-local": "latest",
+    "passport-twitter": "latest",
+    "twit": "^2.2.9"
   },
   "scripts": {
     "start": "node server.js"

@@ -1,10 +1,15 @@
 var LocalStrategy    = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
-var GoogleStrategy   = require('passport-google-oauth').OAuth2Strategy;
 
-// loading the user model
+// loading the user and twitter model
 var User       = require('../app/models/user');
+var Twitter    = require('../app/models/Twitter');
+
+var Twit = require('twit');
+var config = require('./config');
+
+var T = new Twit(config);
 
 // loading the auth variables
 var configAuth = require('./auth');
@@ -25,8 +30,10 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
-            done(err, user);
-        });
+			Twitter.find({'followerOf': id},function(err, followers) {
+				done(err, user, followers);
+			});
+		});
     });
 
     // =========================================================================
@@ -58,7 +65,10 @@ module.exports = function(passport) {
 
                 // all is well, return user
                 else
-                    return done(null, user);
+					Twitter.find({'followerOf': user.id},function(err, followers) {
+					return done(null, user, followers);
+					});
+                    //return done(null, user);
             });
         });
 
@@ -241,16 +251,38 @@ module.exports = function(passport) {
                             user.twitter.token       = token;
                             user.twitter.username    = profile.username;
                             user.twitter.displayName = profile.displayName;
+							
+							T.get('followers/list', { screen_name: user.twitter.displayName, count: 200 },  function getData(err, data, response) {
+  
+								if (err) {
+									console.log(err);
+								}
+      
+								var followerList = data;
+								console.log('followers data is '); 
+								console.log(followerList);
+      
+								if(followerList.next_cursor > 0)
+								T.get('followers/list', { screen_name: user.twitter.displayName, count: 200, cursor: followerList.next_cursor_str }, getData);
+							});
 
                             user.save(function(err) {
                                 if (err)
                                     return done(err);
                                     
-                                return done(null, user);
+								Twitter.find({'followerOf': user.id},function(err, followers) {
+								return done(null, user, followers);
+								});
+                                //return done(null, user);
                             });
                         }
+						
+						Twitter.find({'followerOf': user.id},function(err, followers) {
+						return done(null, user, followers);
+						});
 
-                        return done(null, user); // user found, return that user
+                        //return done(null, user); // user found, return that user
+						
                     } else {
                         // if there is no user, create them
                         var newUser                 = new User();
@@ -263,8 +295,11 @@ module.exports = function(passport) {
                         newUser.save(function(err) {
                             if (err)
                                 return done(err);
-                                
-                            return done(null, newUser);
+                               
+							Twitter.find({'followerOf': newUser.id},function(err, followers) {
+								return done(null, newUser, followers);
+								});
+                            //return done(null, newUser);
                         });
                     }
                 });
