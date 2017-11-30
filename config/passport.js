@@ -299,9 +299,9 @@ module.exports = function(passport) {
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = [];
-                        newUser.twitter.followers   = ["banana"];
-						getAllFollowers(profile.username, followers);
-						newUser.twitter.followers_count = 1;
+                        getAllFollowers(profile.username, followers);
+						newUser.twitter.followers   = followers;
+						newUser.twitter.followers_count = followers.length;
 
                         newUser.save(function(err) {
                             if (err)
