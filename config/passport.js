@@ -9,6 +9,8 @@ var User       = require('../app/models/user');
 var configAuth = require('./auth');
 var config = require('./config');
 
+var Twit = require('twit');
+
 var T = new Twit(config);
 
 module.exports = function(passport) {
