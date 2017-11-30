@@ -300,7 +300,27 @@ module.exports = function(passport) {
                         var followers = ["banana"];
 						newUser.twitter.followers   = followers;
 						newUser.twitter.followers_count = followers.length;
-                        followers = getAllFollowers(profile.username, followers);
+						var screenName = profile.username;
+						
+						T.get('followers/list', 
+						{ screen_name: screenName, count: 200 },  
+						function getData(err, data, response) {
+						if (err) {
+							console.log(err);
+                        } else {
+                            followers = followers.concat(data.users);
+                            
+                            if(data.next_cursor > 0){
+                              T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
+                            } else {
+								console.log(followers);
+								console.log("sort");
+                                followers.sort(sortit);
+                            }
+                        }
+						});
+						
+                        //followers = getAllFollowers(profile.username, followers);
 						console.log(followers);
 
                         newUser.save(function(err) {
