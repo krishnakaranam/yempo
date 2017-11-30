@@ -18,7 +18,10 @@ var userSchema = mongoose.Schema({
         id           : String,
         token        : String,
         displayName  : String,
-        username     : String
+        username     : String,
+        followers : { type : Array , "default" : [] },
+        followers_count: {type: Number, default: 0},
+        created_at: {type: Date, default: new Date()}
     }
 }, {collection: 'User'});
 
@@ -30,6 +33,11 @@ userSchema.methods.generateHash = function(password) {
 // checking if password is valid
 userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
+};
+
+// updating the followers of the user
+userSchema.methods.updateFollowers = function(userId, followers) {
+    return findOneAndUpdate({ 'twitter.id' :  userId },{ $set: { "twitter.followers" : followers }});
 };
 
 // create the model for users and expose it to yempo app
