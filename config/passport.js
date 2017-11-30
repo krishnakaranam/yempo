@@ -8,6 +8,7 @@ var User       = require('../app/models/user');
 // loading the auth variables
 var configAuth = require('./auth');
 var config = require('./config');
+var Twit = require('twit');
 
 var T = new Twit(config);
 
