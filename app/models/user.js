@@ -19,7 +19,7 @@ var userSchema = mongoose.Schema({
         token        : String,
         displayName  : String,
         username     : String,
-        followers : { type : Array , "default" : [] },
+        followers : {type : Array , default : [] },
         followers_count: {type: Number, default: 0},
         created_at: {type: Date, default: new Date()}
     }

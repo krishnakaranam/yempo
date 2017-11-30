@@ -145,6 +145,8 @@ module.exports = function(app, passport) {
     app.get('/unlink/twitter', isLoggedIn, function(req, res) {
         var user           = req.user;
         user.twitter.token = undefined;
+		user.twitter.followers = undefined;
+		user.twitter.followers_count = undefined;
         user.save(function(err) {
             res.redirect('/profile');
         });

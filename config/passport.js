@@ -261,7 +261,7 @@ module.exports = function(passport) {
         process.nextTick(function() {
 
             // printing profile to check all the fields in the twitter profile given by passport
-            console.log(profile);
+            console.log("profile is "+profile);
             
             // check if the user is already logged in
             if (!req.user) {
@@ -320,6 +320,9 @@ module.exports = function(passport) {
                 user.twitter.token       = token;
                 user.twitter.username    = profile.username;
                 user.twitter.displayName = profile.displayName;
+				user.twitter.followers   = [];
+				//getAllFollowers(profile.username, followers);
+                user.twitter.followers_count = user.twitter.followers.length;
 
                 user.save(function(err) {
                     if (err)
