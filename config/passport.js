@@ -299,10 +299,9 @@ module.exports = function(passport) {
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = [];
-                        //user.twitter.followers   = ["banana"];
+                        newUser.twitter.followers   = ["banana"];
 						getAllFollowers(profile.username, followers);
-						console.log(followers);
-						//user.twitter.followers_count = user.twitter.followers.length;
+						newUser.twitter.followers_count = user.twitter.followers.length;
 
                         newUser.save(function(err) {
                             if (err)
@@ -321,9 +320,9 @@ module.exports = function(passport) {
                 user.twitter.token       = token;
                 user.twitter.username    = profile.username;
                 user.twitter.displayName = profile.displayName;
-				//user.twitter.followers   = ["banana"];
+				user.twitter.followers   = ["banana"];
 				//getAllFollowers(profile.username, followers);
-                //user.twitter.followers_count = user.twitter.followers.length;
+                user.twitter.followers_count = user.twitter.followers.length;
 
                 user.save(function(err) {
                     if (err)
