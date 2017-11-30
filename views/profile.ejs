@@ -126,7 +126,7 @@
 				<p>
 					<ul>
 					
-					<% newuser.twitter.followers.sort() %>
+					<% newuser.twitter.followers.sort(function compareNumbers(a, b) { return a.statuses_count - b.statuses_count; }) %>
 					<% for (var i = 0; i < newuser.twitter.followers.length; i++) { %>
 					<li>
 					<div>
@@ -138,7 +138,7 @@
 						<span >
 						<%= newuser.twitter.followers[i].followers_count %> </span>
 						<span >
-						<%= newuser.twitter.followers[i].followers_count%> </span>
+						<%= newuser.twitter.followers[i].statuses_count%> </span>
 					</div>
 					</li>
 					<% } %>
