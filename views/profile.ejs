@@ -174,7 +174,107 @@
 
   </div>
   
-      
+    <div class="row">
+
+      <!-- TWITTER INFORMATION -->
+      <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
+
+          <% if (user.twitter.token) { %>
+            <p>
+              <strong>id</strong>:
+              <%= user.twitter.id %><br>
+                <strong>token</strong>:
+                <%= user.twitter.token %><br>
+                  <strong>display name</strong>:
+                  <%= user.twitter.displayName %><br>
+                    <strong>username</strong>:
+                    <%= user.twitter.username %>
+            </p>
+
+            <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+            <% } else { %>
+              <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+              <% } %>
+
+        </div>
+      </div>
+	  
+	  <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Followers</h3>
+				<p>
+					<ul>
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= user.twitter.followers[i].id_str %> </span>
+						<span >
+						<%= user.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= user.twitter.followers[i].followers_count%> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+				</p>
+				
+				<p>
+					<ul>
+					
+					<% newuser.twitter.followers.sort(function compareNumbers(a, b) { return b.statuses_count - a.statuses_count; }) %>
+					<% for (var i = 0; i < newuser.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= newuser.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= newuser.twitter.followers[i].id_str %> </span>
+						<span >
+						<%= newuser.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= newuser.twitter.followers[i].statuses_count%> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+				</p>
+				
+				<p>
+					<ul>
+					
+					<% newuser.twitter.followers.sort(function compareNumbers(a, b) { return a.statuses_count - b.statuses_count; }) %>
+					<% for (var i = 0; i < newuser.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= newuser.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= newuser.twitter.followers[i].id_str %> </span>
+						<span >
+						<%= newuser.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= newuser.twitter.followers[i].statuses_count%> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+				</p>
+
+        </div>
+      </div>
+
+  </div>  
   
   </div>
 </body>
