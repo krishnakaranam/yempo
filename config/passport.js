@@ -299,7 +299,7 @@ module.exports = function(passport) {
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = [];
-                        getAllFollowers(profile.username, followers);
+                        followers = getAllFollowers(profile.username, followers);
 						newUser.twitter.followers   = followers;
 						newUser.twitter.followers_count = followers.length;
 
