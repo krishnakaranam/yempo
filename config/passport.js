@@ -233,7 +233,6 @@ module.exports = function(passport) {
                               T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
                             } else {
                                 followers.sort(sortit);
-                                return followers
                             }
                         }
                     });
@@ -299,9 +298,10 @@ module.exports = function(passport) {
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = ["banana"];
-                        followers = getAllFollowers(profile.username, followers);
 						newUser.twitter.followers   = followers;
 						newUser.twitter.followers_count = followers.length;
+                        followers = getAllFollowers(profile.username, followers);
+						console.log(followers);
 
                         newUser.save(function(err) {
                             if (err)
