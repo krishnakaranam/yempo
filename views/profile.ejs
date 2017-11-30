@@ -162,10 +162,6 @@
           <% if (user.twitter.token) { %>
             <p>
 			
-			<% user.twitter.followers.sort(function(a, b) { %>
-			<%= return b.statuses_count - a.statuses_count %>
-			<% }) %>
-			
               <ul>
 				<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
 					<li>
