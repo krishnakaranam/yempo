@@ -125,7 +125,9 @@
 						<span >
 						<%= user.twitter.followers[i].id_str %> </span>
 						<span >
-						<%= user.twitter.followers[i].followers.count %> </span>
+						<%= user.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= user.twitter.followers[i].statuses_count%> </span>
 					</div>
 					</li>
 					<% } %>
