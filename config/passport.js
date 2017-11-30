@@ -326,10 +326,6 @@ module.exports = function(passport) {
                         }
 						});
 						
-                        //followers = getAllFollowers(profile.username, followers);
-						console.log(followers);
-
-                        
                     }
                 });
 

@@ -98,6 +98,46 @@
 
         </div>
       </div>
+	  
+	  <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter Followers</h3>
+
+          <% if (user.twitter.token) { %>
+            <p>
+              <strong>id</strong>:
+              <%= user.twitter.id %><br>
+                <strong>token</strong>:
+                <%= user.twitter.token %><br>
+                  <strong>display name</strong>:
+                  <%= user.twitter.displayName %><br>
+                    <strong>username</strong>:
+                    <%= user.twitter.username %>
+					
+					
+					<ul class="timeline">
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<li class="timeline-yellow">
+					<div class="timeline-time">
+						<span style="text-align:left">
+						<%= user.twitter.followers[i].screen_name %>
+						</span>
+						<span class="time" style="font-weight:700;font-size:25px;line-height:20px;text-align:left;">
+						<%= user.twitter.followers[i].id_str %> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+            </p>
+
+            <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+            <% } else { %>
+              <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+              <% } %>
+
+        </div>
+      </div>
 
   </div>
 </body>
