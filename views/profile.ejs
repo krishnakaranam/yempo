@@ -105,29 +105,21 @@
 
           <% if (user.twitter.token) { %>
             <p>
-              <strong>id</strong>:
-              <%= user.twitter.id %><br>
-                <strong>token</strong>:
-                <%= user.twitter.token %><br>
-                  <strong>display name</strong>:
-                  <%= user.twitter.displayName %><br>
-                    <strong>username</strong>:
-                    <%= user.twitter.username %>
-					
-					
-					<ul class="timeline">
+              <ul>
 					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
-					<li class="timeline-yellow">
-					<div class="timeline-time">
-						<span style="text-align:left">
+					<li>
+					<div>
+						<span><strong>
 						<%= user.twitter.followers[i].screen_name %>
-						</span>
-						<span class="time" style="font-weight:700;font-size:25px;line-height:20px;text-align:left;">
+						</strong></span>
+						<span>
 						<%= user.twitter.followers[i].id_str %> </span>
+						<span>
+						<%= user.twitter.followers[i].followers_count %> </span>
 					</div>
 					</li>
 					<% } %>
-					</ul>
+			   </ul>
 
             </p>
 
