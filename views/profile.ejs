@@ -122,6 +122,27 @@
 					</ul>
 
 				</p>
+				
+				<p>
+					<ul>
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= user.twitter.followers[i].id_str %> </span>
+						<span >
+						<%= user.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= user.twitter.followers[i].followers_count%> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+				</p>
 
         </div>
       </div>
