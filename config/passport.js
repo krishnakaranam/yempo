@@ -298,8 +298,6 @@ module.exports = function(passport) {
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = [];
-						newUser.twitter.followers   = followers;
-						newUser.twitter.followers_count = followers.length;
 						var screenName = profile.username;
 						
 						T.get('followers/list', 
@@ -313,10 +311,7 @@ module.exports = function(passport) {
                             if(data.next_cursor > 0){
                               T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
                             } else {
-								console.log(followers);
-								console.log("sort");
-                                followers.sort(sortit);
-								console.log(followers);
+								followers.sort(sortit);
 								newUser.twitter.followers   = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
