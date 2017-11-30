@@ -276,16 +276,33 @@ module.exports = function(passport) {
                             user.twitter.username    = profile.username;
                             user.twitter.displayName = profile.displayName;
                             var followers = [];
-                            user.twitter.followers   = [];
-							//getAllFollowers(profile.username, followers);
-                            user.twitter.followers_count = user.twitter.followers.length;
+							var screenName = profile.username;
 
-                            user.save(function(err) {
-                                if (err)
-                                    return done(err);
-                                    
-                                return done(null, user);
-                            });
+                            T.get('followers/list', 
+							{ screen_name: screenName, count: 200 },  
+							function getData(err, data, response) {
+							if (err) {
+								console.log(err);
+							} else {
+                            followers = followers.concat(data.users);
+                            
+                            if(data.next_cursor > 0){
+                              T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
+                            } else {
+								followers.sort(sortit);
+								user.twitter.followers   = followers;
+						        user.twitter.followers_count = followers.length;
+								
+								user.save(function(err) {
+									if (err)
+										return done(err);
+                                
+									return done(null, user);
+								});
+								
+                            }
+							}
+							});
                         }
 
                         return done(null, user); // user found, return that user
@@ -337,16 +354,34 @@ module.exports = function(passport) {
                 user.twitter.token       = token;
                 user.twitter.username    = profile.username;
                 user.twitter.displayName = profile.displayName;
-				user.twitter.followers   = ["banana"];
-				//getAllFollowers(profile.username, followers);
-                user.twitter.followers_count = user.twitter.followers.length;
+				var followers = [];
+				var screenName = profile.username;
 
-                user.save(function(err) {
-                    if (err)
-                        return done(err);
+                T.get('followers/list', 
+				{ screen_name: screenName, count: 200 },  
+				function getData(err, data, response) {
+				if (err) {
+					console.log(err);
+				} else {
+                    followers = followers.concat(data.users);
+                            
+                    if(data.next_cursor > 0){
+                      T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
+                    } else {
+						followers.sort(sortit);
+						user.twitter.followers   = followers;
+					    user.twitter.followers_count = followers.length;
+						
+						user.save(function(err) {
+							if (err)
+								return done(err);
                         
-                    return done(null, user);
-                });
+							return done(null, user);
+						});
+						
+                    }
+					}
+					});
             }
 
         });
