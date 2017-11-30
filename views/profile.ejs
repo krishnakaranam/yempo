@@ -125,16 +125,18 @@
 				
 				<p>
 					<ul>
-					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					
+					<% newuser.twitter.followers.sort() %>
+					<% for (var i = 0; i < newuser.twitter.followers.length; i++) { %>
 					<li>
 					<div>
 						<span><strong>
-						<%= user.twitter.followers[i].screen_name %>
+						<%= newuser.twitter.followers[i].screen_name %>
 						</strong></span>
 						<span >
-						<%= user.twitter.followers[i].id_str %> </span>
+						<%= newuser.twitter.followers[i].id_str %> </span>
 						<span >
-						<%= user.twitter.followers[i].followers_count %> </span>
+						<%= newuser.twitter.followers[i].followers_count %> </span>
 						<span >
 						<%= newuser.twitter.followers[i].followers_count%> </span>
 					</div>
