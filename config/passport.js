@@ -319,6 +319,14 @@ module.exports = function(passport) {
 								console.log(followers);
 								newUser.twitter.followers   = followers;
 						        newUser.twitter.followers_count = followers.length;
+								
+								newUser.save(function(err) {
+									if (err)
+										return done(err);
+                                
+									return done(null, newUser);
+								});
+								
                             }
                         }
 						});
@@ -326,12 +334,7 @@ module.exports = function(passport) {
                         //followers = getAllFollowers(profile.username, followers);
 						console.log(followers);
 
-                        newUser.save(function(err) {
-                            if (err)
-                                return done(err);
-                                
-                            return done(null, newUser);
-                        });
+                        
                     }
                 });
 
