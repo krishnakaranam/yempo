@@ -297,7 +297,7 @@ module.exports = function(passport) {
                         newUser.twitter.token       = token;
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
-                        var followers = ["banana"];
+                        var followers = [];
 						newUser.twitter.followers   = followers;
 						newUser.twitter.followers_count = followers.length;
 						var screenName = profile.username;
@@ -316,6 +316,9 @@ module.exports = function(passport) {
 								console.log(followers);
 								console.log("sort");
                                 followers.sort(sortit);
+								console.log(followers);
+								newUser.twitter.followers   = followers;
+						        newUser.twitter.followers_count = followers.length;
                             }
                         }
 						});
