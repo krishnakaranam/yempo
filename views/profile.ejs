@@ -101,20 +101,68 @@
 	  
 	  <div class="col-sm-6">
         <div class="well">
-          <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter Followers</h3>
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Followers</h3>
+				<p>
+					<ul>
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= user.twitter.followers[i].id_str %> </span>
+						<span >
+						<%= user.twitter.followers[i].followers_count %> </span>
+						<span >
+						<%= user.twitter.followers[i].statuses_count%> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+
+				</p>
+
+        </div>
+      </div>
+
+  </div>
+  
+      <div class="row">
+
+      <!-- TWITTER INFORMATION -->
+      <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Gateway to outside</h3>
 
           <% if (user.twitter.token) { %>
             <p>
-              <strong>id</strong>:
-              <%= user.twitter.id %><br>
-                <strong>token</strong>:
-                <%= user.twitter.token %><br>
-                  <strong>display name</strong>:
-                  <%= user.twitter.displayName %><br>
-                    <strong>username</strong>:
-                    <%= user.twitter.username %>
-					
-					
+              <ul>
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<li>
+					<div>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+						<span >
+						<%= user.twitter.followers[i].followers_count %> </span>
+					</div>
+					</li>
+					<% } %>
+					</ul>
+            </p>
+
+
+        </div>
+      </div>
+	  
+	  <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Active</h3>
+			<p>
+			
+			<%= user.twitter.followers.sort(function(a, b) { return parseFloat(b.statuses_count) - parseFloat(a.statuses_count);}); %>
+			
 					<ul>
 					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
 					<li>
@@ -135,15 +183,11 @@
 
             </p>
 
-            <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
-            <% } else { %>
-              <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
-              <% } %>
-
         </div>
       </div>
 
   </div>
+  
   </div>
 </body>
 
