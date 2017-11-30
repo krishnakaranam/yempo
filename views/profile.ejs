@@ -132,7 +132,7 @@
       <!-- TWITTER INFORMATION -->
       <div class="col-sm-6">
         <div class="well">
-          <h3 class="text-info"><span class="fa fa-twitter"></span> Gateway to the outside</h3>
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Followers</h3>
 
           <% if (user.twitter.token) { %>
             <p>
@@ -151,6 +151,7 @@
 					</li>
 					<% } %>
 			   </ul>
+
             </p>
 
         </div>
@@ -158,13 +159,12 @@
 	  
 	  <div class="col-sm-6">
         <div class="well">
-          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Active</h3>
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Followers</h3>
 
           <% if (user.twitter.token) { %>
             <p>
-			
               <ul>
-				<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
 					<li>
 					<div>
 						<span><strong>
@@ -173,7 +173,7 @@
 						<span>
 						<%= user.twitter.followers[i].id_str %> </span>
 						<span>
-						<%= user.twitter.followers[i].statuses_count %> </span>
+						<%= user.twitter.followers[i].followers_count %> </span>
 					</div>
 					</li>
 					<% } %>
