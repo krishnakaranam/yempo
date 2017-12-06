@@ -189,11 +189,11 @@ var followersOfUser2 = [];
 // Function to sort the 2d array of screen_name and removeMutual lengths
 // Example usage : array.sort(sortForGateway);
 	function sortForGateway(a, b) {
-		if (a[1] === b[1]) {
+		if (a[1][1] === b[1][1]) {
 			return 0;
 		}
 		else {
-			return (a[1] < b[1]) ? -1 : 1;
+			return (a[1][1] < b[1][1]) ? -1 : 1;
 		}
 	}
 	
@@ -230,13 +230,14 @@ var followersOfUser2 = [];
 //
 //		return this array to the front-end
 
-var gatewayArray = [][];
+
 
 // function gatewayToOutside
 	var gatewayToOutside =  function(followerList){
 		var deferred  = Q.defer();
 		
 		var gatewayMap = new Map();
+		var gatewayArray = [][];
 		
 		for (var i = 0; i < followerList.length; i++) {
 			var length;
@@ -256,8 +257,13 @@ var gatewayArray = [][];
 			gatewayMap.set(followerList[i].screen_name, length);
 		}
 		
-		// map foreach 
-		// add into gatewayArray
+		int i = 0;
+		
+		gatewayMap.forEach(function(value, key, map) {
+			gatewayArray[i].push(${key});
+			gatewayArray[i].push(${value});
+			i++;
+		});
 		
 		gatewayArray.sort(sortForGateway);
 		deferred.resolve(gatewayArray);
@@ -265,71 +271,3 @@ var gatewayArray = [][];
 		return deferred.promise;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-// testing maps and promises
-var myMap = new Map();
-
-var getPromise = function(i){
-	var deferred  = Q.defer();
-	
-	var result = i+1;
-	deferred.resolve(result);
-	
-	return deferred.promise;
-}
-
-	getPromise(21)
-	.then(function(data){
-		console.log(data);
-	});
-
-
-var keyString = 'a string',
-    keyObj = {},
-    keyFunc = function() {};
-
-// setting the values
-myMap.set(keyString, "value associated with 'a string'");
-myMap.set(keyObj, 'value associated with keyObj');
-myMap.set(keyFunc, 'value associated with keyFunc');
-
-console.log("size of the map is "+myMap.size);
-
-
