@@ -172,6 +172,12 @@ var followersOfUser2 = [];
 		array.splice(index, 1);
 	}
 	
+// Function to splice the array
+	function addToArray(screen_name, length) {
+		const index = array.indexOf(element);
+		array.splice(index, 1);
+	}
+	
 // Function to print the contents of the array passed
 	function printer(followersOfUser){
 		for (var i = 0; i < followersOfUser.length; i++) {
@@ -230,13 +236,11 @@ var followersOfUser2 = [];
 //
 //		return this array to the front-end
 
-
-
 // function gatewayToOutside
 	var gatewayToOutside =  function(followerList){
 		var deferred  = Q.defer();
 		
-		var gatewayMap = new Map();
+		//var gatewayMap = new Map();
 		var gatewayArray = [][];
 		
 		for (var i = 0; i < followerList.length; i++) {
@@ -246,24 +250,25 @@ var followersOfUser2 = [];
 			.then(function(data){
 				followerFollowers = data;
 				console.log(followerFollowers.length);
+				gatewayArray[i][0]= screen_name;
 			})
 			.then(function(){
 				removeMutual(followersOfUser1, followerFollowers);
 				console.log("after");
 				console.log(followerFollowers.length);
-				length = followerFollowers.length;
+				gatewayArray[i][1]= followerFollowers.length;
 			})
 			
-			gatewayMap.set(followerList[i].screen_name, length);
+			//gatewayMap.set(followerList[i].screen_name, length);
 		}
 		
-		int i = 0;
+		//int i = 0;
 		
-		gatewayMap.forEach(function(value, key, map) {
-			gatewayArray[i].push(${key});
-			gatewayArray[i].push(${value});
-			i++;
-		});
+		//gatewayMap.forEach(function(value, key, map) {
+		//	gatewayArray[i].push(${key});
+		//	gatewayArray[i].push(${value});
+		//	i++;
+		//});
 		
 		gatewayArray.sort(sortForGateway);
 		deferred.resolve(gatewayArray);
