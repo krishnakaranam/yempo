@@ -1,7 +1,10 @@
 var Twit = require('twit');
+var Q = require('q');
+ 
 var config = require('./config/config');
 
 var T = new Twit(config);
+
 var userId = 867980940127068200;
 
 var params = { 
@@ -53,7 +56,6 @@ var parameters = {
   //}
 //}
 
-
 var number = 0;
 var followers = [];
 
@@ -82,7 +84,6 @@ getAllFollowers(screenName, followers);
 	function sortit(a,b){
 		return(b.followers_count - a.followers_count)
 	}
-	
 	
 console.log('total........ number output is of ');
 
@@ -133,76 +134,192 @@ function loopFollowers(userId) {
     });
   }
 
-  
-//Gateway to the outside network:
 
+//Gateway to the outside network:
 var mutual = 0;
 var screenName1 = 'NjaYaTeng';
 var screenName2 = 'niteshtiwari22';
 var followersOfUser1 = [];
 var followersOfUser2 = [];
 
-	function printAllMutualFollowers(screenName1, screenName2, followersOfUser1, followersOfUser2, mutual){
+// function to get all the follower Id's of a user with screenname
+	var getFollowerIds =  function(screenName ,followersOfUser){
+		var deferred  = Q.defer();
 		
 		T.get('followers/ids', 
-				{ screen_name: screenName1, count: 5000 },  
-				function getData(err, data, response) {
+			{ screen_name: screenName, count: 5000 },  
+			function getData(err, data, response) {
 				if (err) {
 					console.log(err);
-					}
-				
-				var followersUser1 = data;
-				followersOfUser1 = followersOfUser1.concat(followersUser1.ids);
-
-				if(followersUser1.next_cursor > 0){
-				  T.get('followers/ids', { screen_name: screenName1, count: 5000, cursor: followersUser1.next_cursor_str }, getData);
-				} else {
-					console.log("length is "+followersOfUser1.length);
-					console.log("followers of user 1 is "+followersOfUser1);
 				}
-				});
-				
-		T.get('followers/ids', 
-				{ screen_name: screenName2, count: 5000 },  
-				function getData(err, data, response) {
-				if (err) {
-					console.log(err);
-					}
-				
-				var followersUser2 = data;
-				followersOfUser2 = followersOfUser2.concat(followersUser2.ids);
-        
-				if(followersUser2.next_cursor > 0){
-				  T.get('followers/ids', { screen_name: screenName2, count: 5000, cursor: followersUser2.next_cursor_str }, getData);
-				} else {
-					console.log("length is "+followersOfUser2.length);
-					console.log("followers of user 2 is "+followersOfUser2);
-		 		}
-		 		});
-				
-		printer(followersOfUser1,followersOfUser2);
-				
-	}
+			
+				var followersUser = data;
+				followersOfUser = followersOfUser.concat(followersUser.ids);
 	
+				if(followersUser.next_cursor > 0){
+				T.get('followers/ids', { screen_name: screenName, count: 5000, cursor: followersUser.next_cursor_str }, getData);
+				} else {
+					deferred.resolve(followersOfUser);
+				}
+			});
+		
+		return deferred.promise;
+	}
+
+// Function to splice the array
 	function remove(array, element) {
 		const index = array.indexOf(element);
 		array.splice(index, 1);
 	}
 	
-	//printAllMutualFollowers(screenName1, screenName2, followersOfUser1, followersOfUser2, mutual);
-	
-	
-	function printer(followersOfUser1,followersOfUser2){
-		
-		for (var i = 0; i < followersOfUser1.length; i++) {
-						remove(followersOfUser2,followersOfUser1[i]);
-				}
-				
-				console.log("length of array 1 is "+followersOfUser1.length);
-				console.log("removed array 2 length is "+followersOfUser2.length);
+// Function to print the contents of the array passed
+	function printer(followersOfUser){
+		for (var i = 0; i < followersOfUser.length; i++) {
+				console.log(followersOfUser[i]);
+			}
 	}
+	
+// Function to remove the mutual friends of the array 2
+	function removeMutual(followersOfUser1,followersOfUser2){
+		for (var i = 0; i < followersOfUser1.length; i++) {
+			remove(followersOfUser2, followersOfUser1[i]);
+		}
+	}
+	
+// Function to sort the 2d array of screen_name and removeMutual lengths
+// Example usage : array.sort(sortForGateway);
+	function sortForGateway(a, b) {
+		if (a[1] === b[1]) {
+			return 0;
+		}
+		else {
+			return (a[1] < b[1]) ? -1 : 1;
+		}
+	}
+	
+// Using promises to ensure the flow of the functions called
+	getFollowerIds(screenName1 ,followersOfUser1)
+      .then(function(data){
+		 followersOfUser1 = data;
+      })
+	  .then(
+		getFollowerIds(screenName2 ,followersOfUser2)
+		.then(function(data){
+         followersOfUser2 = data;
+		 console.log(followersOfUser2.length);
+		})
+		.then(function(){
+		  removeMutual(followersOfUser1, followersOfUser2);
+		  console.log("after");
+		  console.log(followersOfUser2.length);
+		})
+	  );
+	
+	
+// Functions to be written :
+// 
+//   Function gatewayToOutside()
+//		Create Hashmap and
+//		for each of User's followers
+//		 put -> key = follower screen_name and -> value = length of removeMutual array
+//	
+//		for each entry of the map
+//		 copy each entry to the gatewayArray (2d array)
+//
+//		sortForGateway -> use this function to sort this array
+//
+//		return this array to the front-end
 
+var gatewayArray = [][];
+
+// function gatewayToOutside
+	var gatewayToOutside =  function(followerList){
+		var deferred  = Q.defer();
+		
+		var gatewayMap = new Map();
+		
+		for (var i = 0; i < followerList.length; i++) {
+			var length;
+			var followerFollowers[];
+			getFollowerIds(followerList[i].screen_name,followerFollowers)
+			.then(function(data){
+				followerFollowers = data;
+				console.log(followerFollowers.length);
+			})
+			.then(function(){
+				removeMutual(followersOfUser1, followerFollowers);
+				console.log("after");
+				console.log(followerFollowers.length);
+				length = followerFollowers.length;
+			})
+			
+			gatewayMap.set(followerList[i].screen_name, length);
+		}
+		
+		// map foreach 
+		// add into gatewayArray
+		
+		gatewayArray.sort(sortForGateway);
+		deferred.resolve(gatewayArray);
+		
+		return deferred.promise;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// testing maps and promises
 var myMap = new Map();
+
+var getPromise = function(i){
+	var deferred  = Q.defer();
+	
+	var result = i+1;
+	deferred.resolve(result);
+	
+	return deferred.promise;
+}
+
+	getPromise(21)
+	.then(function(data){
+		console.log(data);
+	});
+
 
 var keyString = 'a string',
     keyObj = {},

@@ -17,7 +17,8 @@
     "passport-google-oauth": "latest",
     "passport-local": "latest",
     "passport-twitter": "latest",
-    "twit": "latest"
+    "twit": "latest",
+    "q": "latest"
   },
   "scripts": {
     "start": "node server.js"
