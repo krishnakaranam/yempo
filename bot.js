@@ -1020,15 +1020,12 @@ var followersOfUser2 = [];
 				
 				var followersUser = data;
 				followersOfUser = followersOfUser.concat(followersUser.ids);
-				//console.log("getFollowerIds length is "+followersOfUser.length);
-	
+				
 				if(followersUser.next_cursor > 0){
 				T.get('followers/ids', { screen_name: screenName, count: 5000, cursor: followersUser.next_cursor_str }, getData);
 				} else {
-					//console.log("after followersOfUser "+followersOfUser.length);
 					followersOfUser.push(screenName);
 					deferred.resolve(followersOfUser);
-					
 				}
 			});
 			
