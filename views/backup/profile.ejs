@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Yempo</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <style>
+    body 
+    { padding-top: 80px;
+      word-wrap: break-word; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="page-header text-center">
+      <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+      <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="well">
+          <h3><span class="fa fa-user"></span> Local</h3>
+
+          <% if (user.local.email) { %>
+            <p>
+              <strong>id</strong>:
+              <%= user._id %><br>
+                <strong>email</strong>:
+                <%= user.local.email %><br>
+                  <strong>password</strong>:
+                  <%= user.local.password %>
+            </p>
+
+            <a href="/unlink/local" class="btn btn-default">Unlink</a>
+            <% } else { %>
+              <a href="/connect/local" class="btn btn-default">Connect Local</a>
+              <% } %>
+
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+
+          <% if (user.facebook.token) { %>
+            <p>
+              <strong>id</strong>:
+              <%= user.facebook.id %><br>
+                <strong>token</strong>:
+                <%= user.facebook.token %><br>
+                  <strong>email</strong>:
+                  <%= user.facebook.email %><br>
+                    <strong>name</strong>:
+                    <%= user.facebook.name %><br>
+            </p>
+
+            <a href="/unlink/facebook" class="btn btn-primary">Unlink</a>
+            <% } else { %>
+              <a href="/connect/facebook" class="btn btn-primary">Connect Facebook</a>
+              <% } %>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Twitter</h3>
+
+          <% if (user.twitter.token) { %>
+            <p>
+              <strong>id</strong>:
+              <%= user.twitter.id %><br>
+                <strong>token</strong>:
+                <%= user.twitter.token %><br>
+                  <strong>display name</strong>:
+                  <%= user.twitter.displayName %><br>
+                    <strong>username</strong>:
+                    <%= user.twitter.username %>
+            </p>
+
+            <a href="/unlink/twitter" class="btn btn-info">Unlink</a>
+            <% } else { %>
+              <a href="/connect/twitter" class="btn btn-info">Connect Twitter</a>
+              <% } %>
+
+        </div>
+      </div>
+	  
+	  <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Followers</h3>
+				<p>
+					<table>
+					
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<tr>
+					
+					<td>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+					</td>
+					<td>
+						<span >
+						<%= user.twitter.followers[i].followers_count %> </span>
+					</td>
+					</tr>
+					<% } %>
+					</table>
+				</p>
+        </div>
+      </div>
+
+  </div>
+  
+    <div class="row">
+
+      <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span>Most Active Tweeter</h3>
+				<p>
+				<% user.twitter.followers.sort(function compareNumbers(a, b) { return b.statuses_count - a.statuses_count; }) %>
+					
+					<table>
+					
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<tr>
+					
+					<td>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+					</td>
+					<td>
+						<span >
+						<%= user.twitter.followers[i].statuses_count %> </span>
+					</td>
+					</tr>
+					<% } %>
+					</table>
+
+				</p>
+
+        </div>
+      </div>
+	  
+	  <div class="col-sm-6">
+        <div class="well">
+          <h3 class="text-info"><span class="fa fa-twitter"></span> Most Active Favorites</h3>
+				<p>
+				<% newuser.twitter.followers.sort(function compareNumbers(a, b) { return b.favourites_count - a.favourites_count; }) %>
+					<table>
+					
+					<% for (var i = 0; i < user.twitter.followers.length; i++) { %>
+					<tr>
+					
+					<td>
+						<span><strong>
+						<%= user.twitter.followers[i].screen_name %>
+						</strong></span>
+					</td>
+					<td>
+						<span >
+						<%= user.twitter.followers[i].favourites_count %> </span>
+					</td>
+					</tr>
+					<% } %>
+					</table>
+				</p>
+        </div>
+      </div>
+
+  </div>  
+  
+  </div>
+</body>
+
+</html>

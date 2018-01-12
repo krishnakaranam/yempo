@@ -21,6 +21,22 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    // show the filters page
+    app.get('/filters', function(req, res) {
+        res.render('filters.ejs');
+    });
+
+    // show the feed page
+    app.get('/feed', function(req, res) {
+        res.render('feed.ejs');
+    });
+
+    // show the analytics page
+    app.get('/analytics', function(req, res) {
+        res.render('analytics.ejs');
+    });
+
+
 // =============================================================================
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
