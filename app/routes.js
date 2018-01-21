@@ -22,17 +22,19 @@ module.exports = function(app, passport) {
     });
 
     // show the filters page
-    app.get('/filters', function(req, res) {
-        res.render('filters.ejs');
+    app.get('/filters', isLoggedIn, function(req, res) {
+        res.render('filters.ejs', {
+            user : req.user
+        });
     });
 
     // show the feed page
-    app.get('/feed', function(req, res) {
+    app.get('/feed',isLoggedIn, function(req, res) {
         res.render('feed.ejs');
     });
 
     // show the analytics page
-    app.get('/analytics', function(req, res) {
+    app.get('/analytics',isLoggedIn, function(req, res) {
         res.render('analytics.ejs');
     });
 
