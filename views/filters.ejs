@@ -44,12 +44,6 @@
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
 	
-	<!-- filters core -->
-	<script type="text/javascript" src="js/filters.js"></script>
-	
-	<script type="text/javascript">
-    var User = <%-JSON.stringify(user)%>;
-	</script>
   </head>
 
   <body id="page-top">
@@ -257,7 +251,7 @@
 
 	<script>
 	
-	var followers = User.twitter.followers;
+	
 	var acquaintances = ["B", "F", "H"];
 	
 	$(function(){
@@ -265,7 +259,8 @@
 		type: 'GET',
 		url: '/api/filters',
 		success: function(data){
-		console.log(data);
+		var followers = data.twitter.followers;
+		console.log(followers);
 		}
 	});
 	});
