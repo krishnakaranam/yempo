@@ -43,7 +43,7 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 app.get('/api/filters', function(req, res) {
-	filters.data.gatewayToOutside(req.user.twitter.followers)
+	filters.gatewayToOutside(req.user.twitter.followers)
 	.then(function(data){
 		
 		var gatewayArray = [];
