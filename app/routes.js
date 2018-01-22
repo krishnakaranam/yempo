@@ -27,7 +27,6 @@ module.exports = function(app, passport) {
             user : req.user
         });
     });
-    });
 
     // show the feed page
     app.get('/feed',isLoggedIn, function(req, res) {
