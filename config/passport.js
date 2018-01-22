@@ -293,6 +293,7 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
+								console.log('follower array is ' + JSON.stringify(user.twitter.followers));
 								
 								filters.gatewayToOutside(user.twitter.followers)
 								.then(function(data){
@@ -308,6 +309,7 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
+									console.log('gateway array is ' + JSON.stringify(gatewayArray));
 									user.twitter.gateway = gatewayArray;
 								});
 								
@@ -350,6 +352,7 @@ module.exports = function(passport) {
 								newUser.twitter.followers   = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
+								console.log('follower array is ' + JSON.stringify(newUser.twitter.followers));
 								filters.gatewayToOutside(newUser.twitter.followers)
 								.then(function(data){
 									
