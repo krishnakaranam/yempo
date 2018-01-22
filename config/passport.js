@@ -293,7 +293,7 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
-								console.log('followers array is ' + JSON.stringify(user.twitter.followers.id));
+								console.log('followers array is ' + JSON.stringify(user.twitter.followers_count));
 								
 								filters.gatewayToOutside(user.twitter.followers)
 								.then(function(data){
@@ -352,7 +352,7 @@ module.exports = function(passport) {
 								newUser.twitter.followers   = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
-								console.log('follower is ' + JSON.stringify(newUser.twitter.followers.id));
+								console.log('follower is ' + JSON.stringify(newUser.twitter.followers_count));
 								filters.gatewayToOutside(newUser.twitter.followers)
 								.then(function(data){
 									
