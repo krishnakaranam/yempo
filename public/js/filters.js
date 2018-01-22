@@ -31,12 +31,6 @@ var methods = {
 			
 		return deferred.promise;
 	}
-
-// Function to splice the array
-	remove: function (array, element) {
-		const index = array.indexOf(element);
-		array.splice(index, 1);
-	}
 	
 // Function to remove the mutual friends of the array 2
 	removeMutual: function (followersOfUser1,followersOfUser2){
@@ -58,6 +52,12 @@ var methods = {
 		else {
 			return (a.length > b.length) ? -1 : 1;
 		}
+	}
+	
+// Function to splice the array
+	remove: function (array, element) {
+		const index = array.indexOf(element);
+		array.splice(index, 1);
 	}
 	
 // calling gateway to the outside function and sorting the array
