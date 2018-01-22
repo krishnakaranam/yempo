@@ -5,6 +5,8 @@ var config = require('./config');
 
 var T = new Twit(config);
 
+var methods = {
+
 // function to get all the follower Id's of a user with screenname
 	function getFollowerIds(screenName ,followersOfUser){
 		var deferred  = Q.defer();
@@ -109,3 +111,7 @@ var T = new Twit(config);
 		}
 	return deferred.promise;
 	}
+
+}
+
+exports.data = methods;

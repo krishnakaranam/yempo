@@ -43,7 +43,29 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 app.get('/api/filters', function(req, res) {
-    res.send(req.user);
+	filters.data.gatewayToOutside(req.user.twitter.followers)
+	.then(function(data){
+		
+		var gatewayArray = [];
+		
+		for (var [key, value] of data) {
+			var pair = {
+				screen_name: key,
+				length: value
+			};
+			gatewayArray.push(pair);
+		}
+		
+		gatewayArray.sort(sortForGateway);
+		console.log('array is ' + JSON.stringify(gatewayArray));
+		
+		var result = gatewayArray.map(a => a.screen_name);
+		console.log('array is ' + JSON.stringify(result));
+		
+		res.send(JSON.stringify(gatewayArray));
+		
+	});
+    
 });
 
 // launch ======================================================================
