@@ -263,15 +263,16 @@
 		var gateway = JSON.parse(data);
 		console.log(gateway.length);
 		
-		//var acquaintances = data.map(a => a.screen_name);
-		//var bridges = data.map(a => a.len);
+		var acquaintances = gateway.map(a => a.screen_name);
+		var bridges = gateway.map(a => a.len);
 		
 		}
 	});
 	});
 	
     var friends = [];
-    
+    console.log(acquaintances.length);
+	console.log(bridges.length);
     
     var angle = 360/ (friends.length + acquaintances.length);
 
