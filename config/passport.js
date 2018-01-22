@@ -4,6 +4,7 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 
 // loading the user model
 var User       = require('../app/models/user');
+var filters = require('../public/js/filters.js');
 
 // loading the auth variables
 var configAuth = require('./auth');
@@ -260,7 +261,7 @@ module.exports = function(passport) {
         process.nextTick(function() {
 
             // printing profile to check all the fields in the twitter profile given by passport
-            console.log("profile is "+profile);
+            //console.log("profile is "+profile);
             
             // check if the user is already logged in
             if (!req.user) {
@@ -292,6 +293,22 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
+								
+								filters.gatewayToOutside(user.twitter.followers)
+								.then(function(data){
+									
+									var gatewayArray = [];
+									
+									for (var [key, value] of data) {
+										var pair = {
+											screen_name: key,
+											length: value
+										};
+										gatewayArray.push(pair);
+									}
+									
+									gatewayArray.sort(sortForGateway);
+									user.twitter.gateway = gatewayArray;
 								
 								user.save(function(err) {
 									if (err)
@@ -332,6 +349,22 @@ module.exports = function(passport) {
 								newUser.twitter.followers   = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
+								filters.gatewayToOutside(newUser.twitter.followers)
+								.then(function(data){
+									
+									var gatewayArray = [];
+									
+									for (var [key, value] of data) {
+										var pair = {
+											screen_name: key,
+											length: value
+										};
+										gatewayArray.push(pair);
+									}
+									
+									gatewayArray.sort(sortForGateway);
+									newUser.twitter.gateway   = gatewayArray;
+								
 								newUser.save(function(err) {
 									if (err)
 										return done(err);
@@ -371,6 +404,22 @@ module.exports = function(passport) {
 						followers.sort(sortit);
 						user.twitter.followers   = followers;
 					    user.twitter.followers_count = followers.length;
+						
+						filters.gatewayToOutside(user.twitter.followers)
+								.then(function(data){
+									
+									var gatewayArray = [];
+									
+									for (var [key, value] of data) {
+										var pair = {
+											screen_name: key,
+											length: value
+										};
+										gatewayArray.push(pair);
+									}
+									
+									gatewayArray.sort(sortForGateway);
+									user.twitter.gateway   = gatewayArray;
 						
 						user.save(function(err) {
 							if (err)

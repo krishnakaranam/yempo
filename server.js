@@ -12,7 +12,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/database.js');
-var filters = require('./public/js/filters.js');
+//var filters = require('./public/js/filters.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to mongodb database
@@ -44,29 +44,7 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 app.get('/api/filters', function(req, res) {
 	
-	console.log(req.user.twitter.followers);
-	filters.gatewayToOutside(req.user.twitter.followers)
-	.then(function(data){
-		
-		var gatewayArray = [];
-		
-		for (var [key, value] of data) {
-			var pair = {
-				screen_name: key,
-				length: value
-			};
-			gatewayArray.push(pair);
-		}
-		
-		gatewayArray.sort(sortForGateway);
-		console.log('array is ' + JSON.stringify(gatewayArray));
-		
-		var result = gatewayArray.map(a => a.screen_name);
-		console.log('array is ' + JSON.stringify(result));
-		
-		res.send(JSON.stringify(gatewayArray));
-		
-	});
+	res.send(JSON.stringify(req.user.twitter.gateway));
     
 });
 
