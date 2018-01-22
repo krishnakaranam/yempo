@@ -42,7 +42,7 @@ app.use(express.static(__dirname + '/public'));
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-app.get('/api/filters', isLoggedIn, function(req, res) {
+app.get('/api/filters', function(req, res) {
     res.send(req.user);
 });
 
