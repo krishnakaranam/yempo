@@ -99,7 +99,7 @@ var T = new Twit(config);
 			for (var [key, value] of data) {
 				var pair = {
 					screen_name: key,
-					length: value
+					len: value
 				};
 				gatewayArray.push(pair);
 			}

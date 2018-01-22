@@ -260,12 +260,11 @@
 		type: 'GET',
 		url: '/api/filters',
 		success: function(data){
-		//var gateway = data.twitter.gateway;
-		console.log(data);
+		var gateway = JSON.parse(data);
+		console.log(gateway.length);
 		
-		
-		var acquaintances = data.map(a => a.screen_name);
-		var bridges = data.map(a => a.length);
+		//var acquaintances = data.map(a => a.screen_name);
+		//var bridges = data.map(a => a.len);
 		
 		}
 	});
