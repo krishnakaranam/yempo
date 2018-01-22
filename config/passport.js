@@ -347,7 +347,7 @@ module.exports = function(passport) {
 			
 		deferred.resolve(gatewayArray);
 		return deferred.promise;
-		}
+		});
 		}
 	
 
