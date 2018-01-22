@@ -448,6 +448,7 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								newUser.twitter.followers = followers;
 						        newUser.twitter.followers_count = followers.length;
+								console.log('+++++++++++++++++++ newUser.twitter.followers_count ' + JSON.stringify(newUser.twitter.followers_count));
 								
 								gatewayToOutside(newUser.twitter.followers)
 								.then(function(data){
