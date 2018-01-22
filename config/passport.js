@@ -238,7 +238,7 @@ module.exports = function(passport) {
                     });
         }
         
-        function sortit(a,b){
+    function sortit(a,b){
             return(b.followers_count - a.followers_count)
         }
 		
@@ -298,7 +298,7 @@ module.exports = function(passport) {
 	
 	
 	// function to get outside network
-	exports.gatewayToOutside = function (followerList){
+	gatewayToOutside = function (followerList){
 		var deferred  = Q.defer();
 		var myMap = new Map();
 		var sc_name;
@@ -377,7 +377,7 @@ module.exports = function(passport) {
 						        user.twitter.followers_count = followers.length;
 								console.log('followers array is ' + JSON.stringify(user.twitter.followers_count));
 								
-								filters.gatewayToOutside(user.twitter.followers)
+								gatewayToOutside(user.twitter.followers)
 								.then(function(data){
 									
 									var gatewayArray = [];
@@ -494,7 +494,7 @@ module.exports = function(passport) {
 						user.twitter.followers   = followers;
 					    user.twitter.followers_count = followers.length;
 						
-						filters.gatewayToOutside(user.twitter.followers)
+						gatewayToOutside(user.twitter.followers)
 								.then(function(data){
 									
 									var gatewayArray = [];
