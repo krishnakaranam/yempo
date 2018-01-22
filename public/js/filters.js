@@ -8,7 +8,7 @@ var T = new Twit(config);
 var methods = {
 
 // function to get all the follower Id's of a user with screenname
-	function getFollowerIds(screenName ,followersOfUser){
+	getFollowerIds: function (screenName ,followersOfUser){
 		var deferred  = Q.defer();
 		
 		T.get('followers/ids', 
@@ -33,13 +33,13 @@ var methods = {
 	}
 
 // Function to splice the array
-	function remove(array, element) {
+	remove: function (array, element) {
 		const index = array.indexOf(element);
 		array.splice(index, 1);
 	}
 	
 // Function to remove the mutual friends of the array 2
-	function removeMutual(followersOfUser1,followersOfUser2){
+	removeMutual: function (followersOfUser1,followersOfUser2){
 		var deferred  = Q.defer();
 		for (var i = 0; i < followersOfUser1.length; i++) {
 			remove(followersOfUser2, followersOfUser1[i].id);
@@ -51,7 +51,7 @@ var methods = {
 	
 // Function to sort the 2d array of screen_name and removeMutual lengths
 // Example usage : array.sort(sortForGateway);
-	function sortForGateway(a, b) {
+	sortForGateway: function (a, b) {
 		if (a.length === b.length) {
 			return 0;
 		}
@@ -85,7 +85,7 @@ var methods = {
 //	});
 	
 	// function to get outside network
-	function gatewayToOutside(followerList){
+	gatewayToOutside: function (followerList){
 		var deferred  = Q.defer();
 		var myMap = new Map();
 		var sc_name;
