@@ -364,6 +364,7 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
+									console.log('gateway array is ' + JSON.stringify(gatewayArray));
 									newUser.twitter.gateway   = gatewayArray;
 									
 									});
@@ -422,6 +423,7 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
+									console.log('array is ' + JSON.stringify(gatewayArray));
 									user.twitter.gateway   = gatewayArray;
 						
 									});
