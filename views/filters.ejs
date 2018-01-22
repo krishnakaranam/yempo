@@ -260,27 +260,16 @@
 	var followers = User.twitter.followers;
 	var acquaintances = ["B", "F", "H"];
 	
-	// calling gateway to the outside function and sorting the array
-	gatewayToOutside(followers)
-	.then(function(data){
-		
-		var gatewayArray = [];
-		
-		for (var [key, value] of data) {
-			var pair = {
-				screen_name: key,
-				length: value
-			};
-			gatewayArray.push(pair);
+	$(function(){
+	$.ajax({
+		type: 'GET',
+		url: '/api/filters',
+		success: function(data){
+		console.log(data);
 		}
-		
-		gatewayArray.sort(sortForGateway);
-		
-		var acquaintances = gatewayArray.map(a => a.screen_name);
-		console.log('array is ' + JSON.stringify(acquaintances));
-		
 	});
-
+	});
+	
     var friends = ["C", "D", "L"];
     
     var bridges = ["A", "E", "G"];
