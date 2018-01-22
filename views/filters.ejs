@@ -252,7 +252,8 @@
 	<script>
 	
 	
-	var acquaintances = ["B", "F", "H"];
+	var acquaintances = [];
+	var bridges = [];
 	
 	$(function(){
 	$.ajax({
@@ -261,13 +262,18 @@
 		success: function(data){
 		//var gateway = data.twitter.gateway;
 		console.log(data);
+		
+		
+		var acquaintances = data.map(a => a.screen_name);
+		var bridges = data.map(a => a.length);
+		
 		}
 	});
 	});
 	
-    var friends = ["C", "D", "L"];
+    var friends = [];
     
-    var bridges = ["A", "E", "G"];
+    
     var angle = 360/ (friends.length + acquaintances.length);
 
     var canvas = d3.select("#mostFollowers")
