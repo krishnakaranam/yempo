@@ -59,28 +59,28 @@ var T = new Twit(config);
 	}
 	
 // calling gateway to the outside function and sorting the array
-	gatewayToOutside(followerList)
-	.then(function(data){
-		
-		var gatewayArray = [];
-		
-		console.log("working");
-		
-		for (var [key, value] of data) {
-			var pair = {
-				screen_name: key,
-				length: value
-			};
-			gatewayArray.push(pair);
-		}
-		
-		gatewayArray.sort(sortForGateway);
-		console.log('array is ' + JSON.stringify(gatewayArray));
-		
-		var result = gatewayArray.map(a => a.screen_name);
-		console.log('array is ' + JSON.stringify(result));
-		
-	});
+//	gatewayToOutside(followerList)
+//	.then(function(data){
+//		
+//		var gatewayArray = [];
+//		
+//		console.log("working");
+//		
+//		for (var [key, value] of data) {
+//			var pair = {
+//				screen_name: key,
+//				length: value
+//			};
+//			gatewayArray.push(pair);
+//		}
+//		
+//		gatewayArray.sort(sortForGateway);
+//		console.log('array is ' + JSON.stringify(gatewayArray));
+//		
+//		var result = gatewayArray.map(a => a.screen_name);
+//		console.log('array is ' + JSON.stringify(result));
+//		
+//	});
 	
 	// function to get outside network
 	function gatewayToOutside(followerList){
