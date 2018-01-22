@@ -60,7 +60,7 @@ var T = new Twit(config);
 	
 	
 	// function to get outside network
-	exports.gatewayToOutside = function (followerList){
+	gatewayToOutside = function (followerList){
 		var deferred  = Q.defer();
 		var myMap = new Map();
 		var sc_name;
@@ -86,3 +86,29 @@ var T = new Twit(config);
 		}
 	return deferred.promise;
 	}
+	
+	
+	exports.gatewayToOutsideArray = function (followerList){
+		var deferred  = Q.defer();
+		
+		gatewayToOutside(followerList)
+		.then(function(data){
+			
+			var gatewayArray = [];
+			
+			for (var [key, value] of data) {
+				var pair = {
+					screen_name: key,
+					length: value
+				};
+				gatewayArray.push(pair);
+			}
+			
+			gatewayArray.sort(sortForGateway);
+			
+			console.log('************ sorted array is ' + JSON.stringify(gatewayArray));
+			
+		deferred.resolve(gatewayArray);
+		return deferred.promise;
+		});
+		}

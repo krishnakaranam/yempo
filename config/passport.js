@@ -4,6 +4,7 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 
 // loading the user model
 var User       = require('../app/models/user');
+var Filter     = require('../public/js');
 
 // loading the auth variables
 var configAuth = require('./auth');
@@ -219,147 +220,10 @@ module.exports = function(passport) {
     // TWITTER HELPER FUNCTIONS ================================================
     // =========================================================================
     
-    function getAllFollowers(screenName, followers){
-        
-            T.get('followers/list', 
-                    { screen_name: screenName, count: 200 },  
-                    function getData(err, data, response) {
-                    if (err) {
-                        console.log(err);
-                        } else {
-                            followers = followers.concat(data.users);
-                            
-                            if(data.next_cursor > 0){
-                              T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
-                            } else {
-                                followers.sort(sortit);
-                            }
-                        }
-                    });
-        }
-        
     function sortit(a,b){
             return(b.followers_count - a.followers_count)
         }
 		
-	
-	// function to get all the follower Id's of a user with screenname
-	function getFollowerIds(screenName ,followersOfUser){
-		var deferred  = Q.defer();
-		
-		T.get('followers/ids', 
-			{ screen_name: screenName, count: 5000 },  
-			function getData(err, data, response) {
-				if (err) {
-					console.log("error is " +err+ " for screenname "+screenName);
-				}
-				
-				var followersUser = data;
-				followersOfUser = followersOfUser.concat(followersUser.ids);
-				
-				if(followersUser.next_cursor > 0){
-				T.get('followers/ids', { screen_name: screenName, count: 5000, cursor: followersUser.next_cursor_str }, getData);
-				} else {
-					followersOfUser.push(screenName);
-					deferred.resolve(followersOfUser);
-				}
-			});
-			
-		return deferred.promise;
-	}
-	
-	// Function to remove the mutual friends of the array 2
-	function removeMutual(followersOfUser1,followersOfUser2){
-		var deferred  = Q.defer();
-		for (var i = 0; i < followersOfUser1.length; i++) {
-			remove(followersOfUser2, followersOfUser1[i].id);
-			//console.log("removing");
-		}
-		deferred.resolve(followersOfUser2);
-		return deferred.promise;
-	}
-	
-	// Function to sort the 2d array of screen_name and removeMutual lengths
-	// Example usage : array.sort(sortForGateway);
-	function sortForGateway(a, b) {
-		if (a.length === b.length) {
-			return 0;
-		}
-		else {
-			return (a.length > b.length) ? -1 : 1;
-		}
-	}
-	
-	// Function to splice the array
-	function remove(array, element) {
-		const index = array.indexOf(element);
-		array.splice(index, 1);
-	}
-	
-	
-	// function to get outside network
-	gatewayToOutside = function (followerList){
-		var deferred  = Q.defer();
-		var myMap = new Map();
-		var sc_name;
-		
-		for (var i = 0; i < followerList.length; i++) {
-			var length;
-			var followerFollowers = [];
-			
-			getFollowerIds(followerList[i].screen_name,followerFollowers)
-				.then(function(data){
-					sc_name = data.pop();
-					followerFollowers = data;
-					
-					removeMutual(followerList, followerFollowers)
-						.then(function(data){
-							myMap.set(sc_name,data.length);
-							
-							if(myMap.size == followerList.length){
-								deferred.resolve(myMap);
-							}
-				})
-				});
-		}
-	return deferred.promise;
-	}
-	
-	printIt = function (){
-		
-		var deferred  = Q.defer();
-		var hi = "hi";
-		console.log('************ hi is ' + hi);
-		deferred.resolve(hi);
-		return deferred.promise;
-		
-	}
-
-		gatewayToOutsideArray = function (followerList){
-		var deferred  = Q.defer();
-		
-		gatewayToOutside(followerList)
-		.then(function(data){
-			
-			var gatewayArray = [];
-			
-			for (var [key, value] of data) {
-				var pair = {
-					screen_name: key,
-					length: value
-				};
-				gatewayArray.push(pair);
-			}
-			
-			gatewayArray.sort(sortForGateway);
-			
-			console.log('************ sorted array is ' + JSON.stringify(gatewayArray));
-			
-		deferred.resolve(gatewayArray);
-		return deferred.promise;
-		});
-		}
-	
 
     // =========================================================================
     // TWITTER =================================================================
@@ -375,7 +239,7 @@ module.exports = function(passport) {
     function(req, token, tokenSecret, profile, done) {
 
         // asynchronous
-        process.nextTick(function() {
+        //process.nextTick(function() {
 
             // printing profile to check all the fields in the twitter profile given by passport
             //console.log("profile is "+profile);
@@ -411,16 +275,12 @@ module.exports = function(passport) {
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
 								
-							printIt()
-							.then(function(data){
-								console.log('************ print ' + JSON.stringify(data));
-							});
 								
-							//	gatewayToOutsideArray(user.twitter.followers)
-							//	.then(function(data){
+								Filter.gatewayToOutsideArray(user.twitter.followers)
+								.then(function(data){
 									
-							//		user.twitter.gateway = data;
-							//		console.log('************ user.twitter.gateway ' + JSON.stringify(data));
+									user.twitter.gateway = data;
+									console.log('************ user.twitter.gateway ' + JSON.stringify(data));
 									
 									user.save(function(err) {
 									if (err)
@@ -430,7 +290,7 @@ module.exports = function(passport) {
 								});
 									
 									
-							//	});
+								});
 								
                             }
 							}
@@ -543,7 +403,7 @@ module.exports = function(passport) {
 					});
             }
 
-        });
+    //    });
 
     }));
 
