@@ -4,13 +4,12 @@ var TwitterStrategy  = require('passport-twitter').Strategy;
 
 // loading the user model
 var User       = require('../app/models/user');
-var filters = require('../public/js/filters.js');
 
 // loading the auth variables
 var configAuth = require('./auth');
 var config = require('./config');
 var Twit = require('twit');
-
+var Q = require('q');
 var T = new Twit(config);
 
 module.exports = function(passport) {
@@ -242,6 +241,89 @@ module.exports = function(passport) {
         function sortit(a,b){
             return(b.followers_count - a.followers_count)
         }
+		
+	
+	// function to get all the follower Id's of a user with screenname
+	function getFollowerIds(screenName ,followersOfUser){
+		var deferred  = Q.defer();
+		
+		T.get('followers/ids', 
+			{ screen_name: screenName, count: 5000 },  
+			function getData(err, data, response) {
+				if (err) {
+					console.log("error is " +err+ " for screenname "+screenName);
+				}
+				
+				var followersUser = data;
+				followersOfUser = followersOfUser.concat(followersUser.ids);
+				
+				if(followersUser.next_cursor > 0){
+				T.get('followers/ids', { screen_name: screenName, count: 5000, cursor: followersUser.next_cursor_str }, getData);
+				} else {
+					followersOfUser.push(screenName);
+					deferred.resolve(followersOfUser);
+				}
+			});
+			
+		return deferred.promise;
+	}
+	
+	// Function to remove the mutual friends of the array 2
+	function removeMutual(followersOfUser1,followersOfUser2){
+		var deferred  = Q.defer();
+		for (var i = 0; i < followersOfUser1.length; i++) {
+			remove(followersOfUser2, followersOfUser1[i].id);
+			//console.log("removing");
+		}
+		deferred.resolve(followersOfUser2);
+		return deferred.promise;
+	}
+	
+	// Function to sort the 2d array of screen_name and removeMutual lengths
+	// Example usage : array.sort(sortForGateway);
+	function sortForGateway(a, b) {
+		if (a.length === b.length) {
+			return 0;
+		}
+		else {
+			return (a.length > b.length) ? -1 : 1;
+		}
+	}
+	
+	// Function to splice the array
+	function remove(array, element) {
+		const index = array.indexOf(element);
+		array.splice(index, 1);
+	}
+	
+	
+	// function to get outside network
+	exports.gatewayToOutside = function (followerList){
+		var deferred  = Q.defer();
+		var myMap = new Map();
+		var sc_name;
+		
+		for (var i = 0; i < followerList.length; i++) {
+			var length;
+			var followerFollowers = [];
+			
+			getFollowerIds(followerList[i].screen_name,followerFollowers)
+				.then(function(data){
+					sc_name = data.pop();
+					followerFollowers = data;
+					
+					removeMutual(followerList, followerFollowers)
+						.then(function(data){
+							myMap.set(sc_name,data.length);
+							
+							if(myMap.size == followerList.length){
+								deferred.resolve(myMap);
+							}
+				})
+				});
+		}
+	return deferred.promise;
+	}
 
 
     // =========================================================================
@@ -349,11 +431,11 @@ module.exports = function(passport) {
                               T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
                             } else {
 								followers.sort(sortit);
-								newUser.twitter.followers   = followers;
+								newUser.twitter.followers = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
 								console.log('follower is ' + JSON.stringify(newUser.twitter.followers_count));
-								filters.gatewayToOutside(newUser.twitter.followers)
+								gatewayToOutside(newUser.twitter.followers)
 								.then(function(data){
 									
 									var gatewayArray = [];
