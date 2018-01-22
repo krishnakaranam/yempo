@@ -43,6 +43,24 @@
 
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
+	<script>
+	
+	$(function(){
+	$.ajax({
+		type: 'GET',
+		url: '/api/filters',
+		success: function(data){
+		var gateway = JSON.parse(data);
+		console.log(gateway.length);
+		
+		var acquaintances = gateway.map(a => a.screen_name);
+		var bridges = gateway.map(a => a.len);
+		
+		}
+	});
+	});
+	
+	</script>
 	
   </head>
 
@@ -252,23 +270,10 @@
 	<script>
 	
 	
-	var acquaintances = [];
-	var bridges = [];
+	//var acquaintances = [];
+	//var bridges = [];
 	
-	$(function(){
-	$.ajax({
-		type: 'GET',
-		url: '/api/filters',
-		success: function(data){
-		var gateway = JSON.parse(data);
-		console.log(gateway.length);
-		
-		var acquaintances = gateway.map(a => a.screen_name);
-		var bridges = gateway.map(a => a.len);
-		
-		}
-	});
-	});
+	
 	
     var friends = [];
     console.log(acquaintances.length);
