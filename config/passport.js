@@ -324,6 +324,16 @@ module.exports = function(passport) {
 		}
 	return deferred.promise;
 	}
+	
+	printIt = function (){
+		
+		var deferred  = Q.defer();
+		var hi = "hi";
+		console.log('************ hi is ' + hi);
+		deferred.resolve(hi);
+		return deferred.promise;
+		
+	}
 
 		gatewayToOutsideArray = function (followerList){
 		var deferred  = Q.defer();
@@ -401,11 +411,16 @@ module.exports = function(passport) {
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
 								
-								gatewayToOutsideArray(user.twitter.followers)
-								.then(function(data){
+							printIt()
+							.then(function(data){
+								console.log('************ print ' + JSON.stringify(data));
+							});
+								
+							//	gatewayToOutsideArray(user.twitter.followers)
+							//	.then(function(data){
 									
-									user.twitter.gateway = data;
-									console.log('************ user.twitter.gateway ' + JSON.stringify(data));
+							//		user.twitter.gateway = data;
+							//		console.log('************ user.twitter.gateway ' + JSON.stringify(data));
 									
 									user.save(function(err) {
 									if (err)
@@ -415,7 +430,7 @@ module.exports = function(passport) {
 								});
 									
 									
-								});
+							//	});
 								
                             }
 							}
