@@ -6,7 +6,7 @@ var config = require('./config');
 var T = new Twit(config);
 
 // function to get all the follower Id's of a user with screenname
-	exports.getFollowerIds = function (screenName ,followersOfUser){
+	function getFollowerIds(screenName ,followersOfUser){
 		var deferred  = Q.defer();
 		
 		T.get('followers/ids', 
@@ -31,7 +31,7 @@ var T = new Twit(config);
 	}
 	
 // Function to remove the mutual friends of the array 2
-	exports.removeMutual = function (followersOfUser1,followersOfUser2){
+	function removeMutual(followersOfUser1,followersOfUser2){
 		var deferred  = Q.defer();
 		for (var i = 0; i < followersOfUser1.length; i++) {
 			remove(followersOfUser2, followersOfUser1[i].id);
@@ -43,7 +43,7 @@ var T = new Twit(config);
 	
 // Function to sort the 2d array of screen_name and removeMutual lengths
 // Example usage : array.sort(sortForGateway);
-	exports.sortForGateway = function (a, b) {
+	function sortForGateway(a, b) {
 		if (a.length === b.length) {
 			return 0;
 		}
@@ -53,7 +53,7 @@ var T = new Twit(config);
 	}
 	
 // Function to splice the array
-	exports.remove = function (array, element) {
+	function remove(array, element) {
 		const index = array.indexOf(element);
 		array.splice(index, 1);
 	}
