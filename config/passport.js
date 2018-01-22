@@ -309,6 +309,7 @@ module.exports = function(passport) {
 									
 									gatewayArray.sort(sortForGateway);
 									user.twitter.gateway = gatewayArray;
+								});
 								
 								user.save(function(err) {
 									if (err)
@@ -364,6 +365,8 @@ module.exports = function(passport) {
 									
 									gatewayArray.sort(sortForGateway);
 									newUser.twitter.gateway   = gatewayArray;
+									
+									});
 								
 								newUser.save(function(err) {
 									if (err)
@@ -420,6 +423,8 @@ module.exports = function(passport) {
 									
 									gatewayArray.sort(sortForGateway);
 									user.twitter.gateway   = gatewayArray;
+						
+									});
 						
 						user.save(function(err) {
 							if (err)
