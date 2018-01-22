@@ -109,6 +109,7 @@ var T = new Twit(config);
 			console.log('************ sorted array is ' + JSON.stringify(gatewayArray));
 			
 		deferred.resolve(gatewayArray);
-		return deferred.promise;
 		});
+		
+		return deferred.promise;
 		}
