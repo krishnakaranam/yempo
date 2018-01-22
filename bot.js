@@ -1073,6 +1073,8 @@ var followersOfUser2 = [];
 		
 		var gatewayArray = [];
 		
+		console.log("working");
+		
 		for (var [key, value] of data) {
 			var pair = {
 				screen_name: key,
@@ -1083,6 +1085,9 @@ var followersOfUser2 = [];
 		
 		gatewayArray.sort(sortForGateway);
 		console.log('array is ' + JSON.stringify(gatewayArray));
+		
+		var result = gatewayArray.map(a => a.screen_name);
+		console.log('array is ' + JSON.stringify(result));
 		
 	});
 	

@@ -251,8 +251,9 @@
 
 	<script>
 
+	console.log('user is ' + JSON.stringify(user));
 
-    var friends = ["C", "D"];
+    var friends = ["C", "D", "L"];
     var acquaintances = ["B", "F", "H"];
     var bridges = ["A", "E", "G"];
     var angle = 360/ (friends.length + acquaintances.length);
@@ -341,16 +342,20 @@
             return myCy + Math.sin(i * Math.PI * angle / 180) * rValue1;
         })
         .attr("r", rValue)
-        .style("fill", "red")
-        .append("text")
-        .text("you")
+        .style("fill", "red");
+		
+	var friendsPetalsText = canvas.selectAll("circles")
+        .data(friends)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
         .attr("x", function (d, i){
-                return myCx + Math.cos(i * Math.PI * angle / 180) * rValue1;
-            } - 15)
+            return myCx + Math.cos(i * Math.PI * angle / 180) * rValue1;
+        })
         .attr("y", function (d, i) {
             return myCy + Math.sin(i * Math.PI * angle / 180) * rValue1;
-        });
-
+        })
+        .style("fill", "black");
 
     var acquaintancesPetals = canvas.selectAll("circles")
         .data(acquaintances)
@@ -365,6 +370,19 @@
         })
         .attr("r", rValue)
         .style("fill", "red");
+		
+	var acquaintancesPetalsText = canvas.selectAll("circles")
+        .data(acquaintances)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCx + Math.cos((friends.length + i) * Math.PI * angle / 180) * rValue2;
+        })
+        .attr("y", function (d, i) {
+            return myCy + Math.sin((friends.length + i) * Math.PI * angle / 180) * rValue2;
+        })
+        .style("fill", "black");
 
 
     var bridgesPetals = canvas.selectAll("circles")
@@ -381,6 +399,18 @@
         .attr("r", rValue)
         .style("fill", "gray");
 		
+	var bridgesPetalsText = canvas.selectAll("circles")
+        .data(bridges)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCx + Math.cos((friends.length + i) * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("y", function (d, i) {
+            return myCy + Math.sin((friends.length + i) * Math.PI * angle / 180) * rValue1;
+        })
+        .style("fill", "black");
 		
 		
 	var friendsGateway = ["C", "D" , "Z"];
