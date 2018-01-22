@@ -12,7 +12,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/database.js');
-var filters = require('./public/js/filter.js');
+var filters = require('./public/js/filters.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to mongodb database
