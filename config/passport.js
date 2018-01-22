@@ -325,6 +325,31 @@ module.exports = function(passport) {
 	return deferred.promise;
 	}
 
+		gatewayToOutsideArray = function (followerList){
+		var deferred  = Q.defer();
+		
+		gatewayToOutside(followerList)
+		.then(function(data){
+			
+			var gatewayArray = [];
+			
+			for (var [key, value] of data) {
+				var pair = {
+					screen_name: key,
+					length: value
+				};
+				gatewayArray.push(pair);
+			}
+			
+			gatewayArray.sort(sortForGateway);
+			
+			console.log('************ sorted array is ' + JSON.stringify(gatewayArray));
+			
+		deferred.resolve(gatewayArray);
+		return deferred.promise;
+		}
+	
+	
 
     // =========================================================================
     // TWITTER =================================================================
@@ -376,21 +401,11 @@ module.exports = function(passport) {
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
 								
-								gatewayToOutside(user.twitter.followers)
+								gatewayToOutsideArray(user.twitter.followers)
 								.then(function(data){
 									
-									var gatewayArray = [];
-									
-									for (var [key, value] of data) {
-										var pair = {
-											screen_name: key,
-											length: value
-										};
-										gatewayArray.push(pair);
-									}
-									
-									gatewayArray.sort(sortForGateway);
-									user.twitter.gateway = gatewayArray;
+									user.twitter.gateway = data;
+									console.log('************ user.twitter.gateway ' + JSON.stringify(data));
 									
 									user.save(function(err) {
 									if (err)
