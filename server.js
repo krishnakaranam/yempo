@@ -12,6 +12,7 @@ var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
 var configDB = require('./config/database.js');
+var filters = require('./public/js/filter.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to mongodb database
@@ -40,6 +41,10 @@ app.use(express.static(__dirname + '/public'));
 
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+app.get('/api/filters', isLoggedIn, function(req, res) {
+    res.send(req.user);
+});
 
 // launch ======================================================================
 app.listen(port);
