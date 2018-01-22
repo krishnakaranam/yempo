@@ -375,7 +375,6 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								user.twitter.followers   = followers;
 						        user.twitter.followers_count = followers.length;
-								console.log('followers array is ' + JSON.stringify(user.twitter.followers_count));
 								
 								gatewayToOutside(user.twitter.followers)
 								.then(function(data){
@@ -391,15 +390,16 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
-									console.log('gateway array is ' + JSON.stringify(gatewayArray));
 									user.twitter.gateway = gatewayArray;
-								});
-								
-								user.save(function(err) {
+									
+									user.save(function(err) {
 									if (err)
 										return done(err);
                                 
 									return done(null, user);
+								});
+									
+									
 								});
 								
                             }
@@ -434,7 +434,6 @@ module.exports = function(passport) {
 								newUser.twitter.followers = followers;
 						        newUser.twitter.followers_count = followers.length;
 								
-								console.log('follower is ' + JSON.stringify(newUser.twitter.followers_count));
 								gatewayToOutside(newUser.twitter.followers)
 								.then(function(data){
 									
@@ -449,7 +448,6 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
-									console.log('gateway array is ' + JSON.stringify(gatewayArray));
 									newUser.twitter.gateway   = gatewayArray;
 									
 									});
@@ -508,7 +506,6 @@ module.exports = function(passport) {
 									}
 									
 									gatewayArray.sort(sortForGateway);
-									console.log('array is ' + JSON.stringify(gatewayArray));
 									user.twitter.gateway   = gatewayArray;
 						
 									});
