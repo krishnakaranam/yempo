@@ -44,6 +44,9 @@
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
 	
+	<!-- filters core -->
+	<script type="text/javascript" src="js/filters.js"></script>
+	
 	<script type="text/javascript">
     var User = <%-JSON.stringify(user)%>;
 	</script>
@@ -254,22 +257,32 @@
 
 	<script>
 	
-	console.log('user is ' + JSON.stringify(User.twitter.followers));
-	
-	function remove(array, index) {
-		array.splice(index, 1);
-	}
-	
 	var followers = User.twitter.followers;
+	var acquaintances = ["B", "F", "H"];
 	
-	console.log('length is ' + followers.length);
-	
-	remove(followers, 1);
-	
-	console.log('AFTER length is ' + followers.length);
+	// calling gateway to the outside function and sorting the array
+	gatewayToOutside(followers)
+	.then(function(data){
+		
+		var gatewayArray = [];
+		
+		for (var [key, value] of data) {
+			var pair = {
+				screen_name: key,
+				length: value
+			};
+			gatewayArray.push(pair);
+		}
+		
+		gatewayArray.sort(sortForGateway);
+		
+		var acquaintances = gatewayArray.map(a => a.screen_name);
+		console.log('array is ' + JSON.stringify(acquaintances));
+		
+	});
 
     var friends = ["C", "D", "L"];
-    var acquaintances = ["B", "F", "H"];
+    
     var bridges = ["A", "E", "G"];
     var angle = 360/ (friends.length + acquaintances.length);
 
