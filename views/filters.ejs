@@ -47,6 +47,12 @@
   </head>
 
   <body id="page-top">
+  
+  <% if (user) { %>
+     <script>
+        var User = <%= user %>            
+     </script>
+<% } %>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
@@ -251,7 +257,7 @@
 
 	<script>
 
-	console.log('user is ' + JSON.stringify(user));
+	console.log('user is ' + JSON.stringify(User));
 
     var friends = ["C", "D", "L"];
     var acquaintances = ["B", "F", "H"];
