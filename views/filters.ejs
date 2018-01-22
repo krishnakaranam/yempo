@@ -45,8 +45,10 @@
     <link href="css/freelancer.min.css" rel="stylesheet">
 	
 	<script type="text/javascript">
-    initialiseUserData( <%-JSON.stringify(user)%> );
+    var User = <%-JSON.stringify(user)%>;
 	</script>
+	
+	
 
   </head>
 
@@ -255,11 +257,6 @@
 
 	<script>
 	
-	function initialiseUserData(user){
-     $(function(){
-         var User = JSON.stringify(user);
-     })
-}
 	console.log('user is ' + JSON.stringify(User));
 
     var friends = ["C", "D", "L"];
