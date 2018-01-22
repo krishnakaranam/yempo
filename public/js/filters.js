@@ -109,5 +109,3 @@ var T = new Twit(config);
 		}
 	return deferred.promise;
 	}
-
-}
