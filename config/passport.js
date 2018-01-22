@@ -450,29 +450,19 @@ module.exports = function(passport) {
 						        newUser.twitter.followers_count = followers.length;
 								console.log('+++++++++++++++++++ newUser.twitter.followers_count ' + JSON.stringify(newUser.twitter.followers_count));
 								
-								gatewayToOutside(newUser.twitter.followers)
+								gatewayToOutsideArray(followers)
 								.then(function(data){
 									
-									var gatewayArray = [];
+								newUser.twitter.gateway = data;
+								console.log('++++++++++++++ newUser.twitter.gateway ' + JSON.stringify(data));
 									
-									for (var [key, value] of data) {
-										var pair = {
-											screen_name: key,
-											length: value
-										};
-										gatewayArray.push(pair);
-									}
-									
-									gatewayArray.sort(sortForGateway);
-									newUser.twitter.gateway   = gatewayArray;
-									
-									});
-								
 								newUser.save(function(err) {
 									if (err)
 										return done(err);
                                 
 									return done(null, newUser);
+								});
+									
 								});
 								
                             }
