@@ -106,8 +106,6 @@ var T = new Twit(config);
 			
 			gatewayArray.sort(sortForGateway);
 			
-			console.log('************ sorted array is ' + JSON.stringify(gatewayArray));
-			
 		deferred.resolve(gatewayArray);
 		});
 		

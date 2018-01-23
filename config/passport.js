@@ -280,7 +280,6 @@ module.exports = function(passport) {
 								.then(function(data){
 									
 									user.twitter.gateway = data;
-									console.log('************ user.twitter.gateway ' + JSON.stringify(data));
 									
 									user.save(function(err) {
 									if (err)
@@ -288,8 +287,7 @@ module.exports = function(passport) {
                                 
 									return done(null, user);
 								});
-									
-									
+								
 								});
 								
                             }
@@ -323,14 +321,12 @@ module.exports = function(passport) {
 								followers.sort(sortit);
 								newUser.twitter.followers = followers;
 						        newUser.twitter.followers_count = followers.length;
-								console.log('+++++++++++++++++++ newUser.twitter.followers_count ' + JSON.stringify(newUser.twitter.followers_count));
 								
 								Filter.gatewayToOutsideArray(newUser.twitter.followers)
 								.then(function(data){
 									
 								newUser.twitter.gateway = data;
-								console.log('++++++++++++++ newUser.twitter.gateway ' + JSON.stringify(data));
-									
+								
 								newUser.save(function(err) {
 									if (err)
 										return done(err);
@@ -377,8 +373,7 @@ module.exports = function(passport) {
 								.then(function(data){
 									
 								user.twitter.gateway = data;
-								console.log('++++++++++++++ user.twitter.gateway ' + JSON.stringify(data));
-									
+								
 								user.save(function(err) {
 									if (err)
 										return done(err);
