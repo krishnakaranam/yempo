@@ -43,6 +43,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/freelancer.min.css" rel="stylesheet">
+	
 	<script>
 	
 	$(function(){
@@ -54,6 +55,8 @@
 		
 		var acquaintances = followers.map(a => a.screen_name);
 		var bridges = followers.map(a => a.followers_count);
+		
+		var friends = [];
     
     var angle = 360/ (friends.length + acquaintances.length);
 
@@ -68,6 +71,21 @@
 
     var rValue1 = 75;
     var rValue2 = 150;
+
+    var friendsLines = canvas.selectAll("lines")
+        .data(friends)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCx + Math.cos(i * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("y1", function (d, i) {
+            return myCy + Math.sin(i * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("x2", myCx)
+        .attr("y2", myCy)
+        .attr("stroke-width", 1)
+        .attr("stroke", "black");
 
     var bridgeDashes = canvas.selectAll("lines")
         .data(bridges)
@@ -114,6 +132,32 @@
         .attr("x", myCx - 15)
         .attr("y", myCy)
         .style('fill', 'white');
+
+    var friendsPetals = canvas.selectAll("circles")
+        .data(friends)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i){
+            return myCx + Math.cos(i * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("cy", function (d, i) {
+            return myCy + Math.sin(i * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("r", rValue)
+        .style("fill", "red");
+		
+	var friendsPetalsText = canvas.selectAll("circles")
+        .data(friends)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCx + Math.cos(i * Math.PI * angle / 180) * rValue1;
+        })
+        .attr("y", function (d, i) {
+            return myCy + Math.sin(i * Math.PI * angle / 180) * rValue1;
+        })
+        .style("fill", "black");
 
     var acquaintancesPetals = canvas.selectAll("circles")
         .data(acquaintances)
@@ -170,9 +214,8 @@
         })
         .style("fill", "black");
 		
-		}
-	});
-	});
+		}});
+		});
 	
 	</script>
 	
@@ -394,6 +437,7 @@
 		var acquaintancesGateway = gateway.map(a => a.screen_name);
 		var bridgesGateway = gateway.map(a => a.len);
 		
+			var friendsGateway = [];
     var angleGateway = 360/ (friendsGateway.length + acquaintancesGateway.length);
 
     var canvasGateway = d3.select("#gatewayToOutside")
@@ -408,6 +452,20 @@
     var rValueGateway1 = 75;
     var rValueGateway2 = 150;
 
+    var friendsGatewayLines = canvasGateway.selectAll("lines")
+        .data(friendsGateway)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxGateway + Math.cos(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyGateway + Math.sin(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .attr("x2", myCxGateway)
+        .attr("y2", myCyGateway)
+        .attr("stroke-width", 1)
+        .attr("stroke", "black");
 
     var bridgeDashesGateway = canvasGateway.selectAll("lines")
         .data(bridgesGateway)
@@ -455,6 +513,28 @@
         .attr("y", myCyGateway)
         .style('fill', 'white');
 
+    var friendsGatewayPetals = canvasGateway.selectAll("circles")
+        .data(friendsGateway)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i){
+            return myCxGateway + Math.cos(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .attr("cy", function (d, i) {
+            return myCyGateway + Math.sin(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .attr("r", rValueGateway)
+        .style("fill", "red")
+        .append("text")
+        .text("you")
+        .attr("x", function (d, i){
+                return myCxGateway + Math.cos(i * Math.PI * angleGateway / 180) * rValueGateway1;
+            } - 15)
+        .attr("y", function (d, i) {
+            return myCyGateway + Math.sin(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        });
+
+
     var acquaintancesGatewayPetals = canvasGateway.selectAll("circles")
         .data(acquaintancesGateway)
         .enter()
@@ -487,8 +567,7 @@
 		}
 	});
 	});
-		
-
+	
 	var friendsInYourArea = ["C", "D", "C", "D", "O"];
     var acquaintancesInYourArea = ["B", "F", "H"];
     var bridgesInYourArea = ["A", "E", "G"];
