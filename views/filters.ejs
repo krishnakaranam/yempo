@@ -439,7 +439,8 @@
 		var acquaintancesGateway = gateway.map(a => a.screen_name);
 		var bridgesGateway = gateway.map(a => a.len);
 		
-			var friendsGateway = [];
+		var friendsGateway = [];
+    
     var angleGateway = 360/ (friendsGateway.length + acquaintancesGateway.length);
 
     var canvasGateway = d3.select("#gatewayToOutside")
@@ -484,7 +485,7 @@
         .style("stroke-dasharray", "5 5")
         .attr("stroke", "black");
 
-    var bridgeToacquaintancesGatewayDashes = canvasGateway.selectAll("lines")
+    var bridgeToAcquaintancesDashesGateway = canvasGateway.selectAll("lines")
         .data(bridgesGateway)
         .enter()
         .append("line")
@@ -526,16 +527,20 @@
             return myCyGateway + Math.sin(i * Math.PI * angleGateway / 180) * rValueGateway1;
         })
         .attr("r", rValueGateway)
-        .style("fill", "red")
-        .append("text")
-        .text("you")
+        .style("fill", "red");
+		
+	var friendsGatewayPetalsText = canvasGateway.selectAll("circles")
+        .data(friendsGateway)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
         .attr("x", function (d, i){
-                return myCxGateway + Math.cos(i * Math.PI * angleGateway / 180) * rValueGateway1;
-            } - 15)
+            return myCxGateway + Math.cos(i * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
         .attr("y", function (d, i) {
             return myCyGateway + Math.sin(i * Math.PI * angleGateway / 180) * rValueGateway1;
-        });
-
+        })
+        .style("fill", "black");
 
     var acquaintancesGatewayPetals = canvasGateway.selectAll("circles")
         .data(acquaintancesGateway)
@@ -550,6 +555,19 @@
         })
         .attr("r", rValueGateway)
         .style("fill", "red");
+		
+	var acquaintancesGatewayPetalsText = canvasGateway.selectAll("circles")
+        .data(acquaintancesGateway)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCxGateway + Math.cos((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway2;
+        })
+        .attr("y", function (d, i) {
+            return myCyGateway + Math.sin((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway2;
+        })
+        .style("fill", "black");
 
 
     var bridgesGatewayPetals = canvasGateway.selectAll("circles")
@@ -565,6 +583,19 @@
         })
         .attr("r", rValueGateway)
         .style("fill", "gray");
+		
+	var bridgesGatewayPetalsText = canvasGateway.selectAll("circles")
+        .data(bridgesGateway)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCxGateway + Math.cos((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .attr("y", function (d, i) {
+            return myCyGateway + Math.sin((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway1;
+        })
+        .style("fill", "black");
 		
 		}
 	});
