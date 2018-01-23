@@ -434,6 +434,8 @@
 		success: function(data){
 		var gateway = JSON.parse(data);
 		
+		console.log(gateway);
+		
 		var acquaintancesGateway = gateway.map(a => a.screen_name);
 		var bridgesGateway = gateway.map(a => a.len);
 		
