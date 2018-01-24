@@ -46,6 +46,14 @@ app.get('/api/filters/mostfollowers', function(req, res) {
 	res.send(JSON.stringify(req.user.twitter.followers));
 });
 
+app.get('/api/filters/mostactive', function(req, res) {
+	res.send(JSON.stringify(req.user.twitter.followers));
+});
+
+app.get('/api/filters/mostinteractive', function(req, res) {
+	res.send(JSON.stringify(req.user.twitter.followers));
+});
+
 app.get('/api/filters/gateway', function(req, res) {
 	res.send(JSON.stringify(req.user.twitter.gateway));
 });
