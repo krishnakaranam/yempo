@@ -330,6 +330,7 @@
 
 			</div>
 		  </div>
+		</div>
 		  
 		  <div class="carousel-item">
 		  <div class="container">
@@ -352,6 +353,7 @@
 			</div>
 
 			</div>
+		  </div>
 		  </div>
 		  
 		  <div class="carousel-item">
@@ -993,6 +995,134 @@
 		}});
 		});
 		
+		var friendsInYourArea = ["C", "D", "C", "D", "O"];
+    var acquaintancesInYourArea = ["B", "F", "H"];
+    var bridgesInYourArea = ["A", "E", "G"];
+    var angleInYourArea = 360/ (friendsInYourArea.length + acquaintancesInYourArea.length);
+
+    var canvasInYourArea = d3.select("#inYourArea")
+        .append("svg")
+        .attr("width", 360)
+        .attr("height", 460);//change to dynamic
+
+    var myCxInYourArea = 360/2;
+    var myCyInYourArea = 460/2;
+    var rValueInYourArea = 20;
+
+    var rValueInYourArea1 = 75;
+    var rValueInYourArea2 = 150;
+
+    var friendsInYourAreaLines = canvasInYourArea.selectAll("lines")
+        .data(friendsInYourArea)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxInYourArea + Math.cos(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyInYourArea + Math.sin(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("x2", myCxInYourArea)
+        .attr("y2", myCyInYourArea)
+        .attr("stroke-width", 1)
+        .attr("stroke", "black");
+
+    var bridgeDashesInYourArea = canvasInYourArea.selectAll("lines")
+        .data(bridgesInYourArea)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("x2", myCxInYourArea)
+        .attr("y2", myCyInYourArea)
+        .style("stroke-dasharray", "5 5")
+        .attr("stroke", "black");
+
+    var bridgeToacquaintancesInYourAreaDashes = canvasInYourArea.selectAll("lines")
+        .data(bridgesInYourArea)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("x2", function (d, i) {
+            return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea2;
+        })
+        .attr("y2", function (d, i) {
+            return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea2;
+        })
+        .style("stroke-dasharray", "5 5")
+        .attr("stroke", "black");
+
+    var circle = canvasInYourArea.append("circle")
+        .attr("cx", myCxInYourArea)
+        .attr("cy", myCyInYourArea)
+        .attr("r", rValueInYourArea)
+        .style("fill", "black");
+
+    canvasInYourArea.append("text")
+        .text("you")
+        .attr("x", myCxInYourArea - 15)
+        .attr("y", myCyInYourArea)
+        .style('fill', 'white');
+
+    var friendsInYourAreaPetals = canvasInYourArea.selectAll("circles")
+        .data(friendsInYourArea)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i){
+            return myCxInYourArea + Math.cos(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("cy", function (d, i) {
+            return myCyInYourArea + Math.sin(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("r", rValueInYourArea)
+        .style("fill", "red")
+        .append("text")
+        .text("you")
+        .attr("x", function (d, i){
+                return myCxInYourArea + Math.cos(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+            } - 15)
+        .attr("y", function (d, i) {
+            return myCyInYourArea + Math.sin(i * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        });
+
+
+    var acquaintancesInYourAreaPetals = canvasInYourArea.selectAll("circles")
+        .data(acquaintancesInYourArea)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+            return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea2;
+
+        })
+        .attr("cy", function (d, i) {
+            return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea2;
+        })
+        .attr("r", rValueInYourArea)
+        .style("fill", "red");
+
+
+    var bridgesInYourAreaPetals = canvasInYourArea.selectAll("circles")
+        .data(bridgesInYourArea)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+            return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+
+        })
+        .attr("cy", function (d, i) {
+            return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
+        })
+        .attr("r", rValueInYourArea)
+        .style("fill", "gray");
 		
 </script>
 	
