@@ -2,6 +2,8 @@
   "name": "yempo",
   "main": "server.js",
   "dependencies": {
+    "async": "^2.6.0",
+    "async-to-sync": "^1.0.7",
     "bcrypt-nodejs": "latest",
     "body-parser": "latest",
     "connect-flash": "latest",
@@ -12,6 +14,7 @@
     "method-override": "latest",
     "mongoose": "latest",
     "morgan": "latest",
+    "node-async-loop": "^1.2.2",
     "passport": "latest",
     "passport-facebook": "latest",
     "passport-google-oauth": "latest",

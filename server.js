@@ -43,7 +43,9 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 app.get('/api/filters/mostfollowers', function(req, res) {
-	res.send(JSON.stringify(req.user.twitter.followers));
+	var result = req.user.twitter.mutualconnections;
+	result.shift();
+	res.send(JSON.stringify(result));
 });
 
 app.get('/api/filters/mostactive', function(req, res) {

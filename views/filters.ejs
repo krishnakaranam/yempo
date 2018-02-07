@@ -54,7 +54,7 @@
 		var followers = JSON.parse(data);
 		
 		var acquaintances = followers.map(a => a.screen_name);
-		var bridges = followers.map(a => a.followers_count);
+		var bridges = followers.map(a => a.mutual_connection);
 		
 		var friends = [];
     
