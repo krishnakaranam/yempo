@@ -285,6 +285,7 @@
 			</div>
 		  </div>
 		</div>
+		
 		<div class="carousel-item active">
 		  <div class="container">
 			<h2 class="text-center text-uppercase text-secondary mb-0">Most Followers</h2>
@@ -308,6 +309,31 @@
 			</div>
 		  </div>
 		</div>
+		
+		<div class="carousel-item">
+		  <div class="container">
+			<h2 class="text-center text-uppercase text-secondary mb-0">Least Followers</h2>
+			<div class="row">
+			  <div class="col-lg-8 mx-auto">
+				<div class="row justify-content-center">
+				  <div id = "leastFollowers"> </div>
+				 </div>
+			  </div>
+			</div>
+			
+			<div class="row">
+			<div class ="col-1"><p> </p></div>
+			<div class="col-4">
+				<button class="button">+</button>
+			</div>
+			<div class="col-7">
+				<p>Select a petal to add a person to your dandelion</p>
+			</div>
+
+			</div>
+		  </div>
+		</div>
+		
 		<div class="carousel-item">
 		  <div class="container">
 			<h2 class="text-center text-uppercase text-secondary mb-0">Most Active</h2>
@@ -649,7 +675,183 @@
 	});
 	});
 	
+	// leastFollowers
 	
+	$(function(){
+	$.ajax({
+		type: 'GET',
+		url: '/api/filters/leastfollowers',
+		success: function(data){
+		var leastfollowers = JSON.parse(data);
+		
+		console.log(leastfollowers);
+		
+		var acquaintancesleastFollowers = leastfollowers.map(a => a.screen_name);
+		var bridgesleastFollowers = leastfollowers.map(a => a.followers_count);
+		
+		var friendsleastFollowers = [];
+    
+    var angleleastFollowers = 360/ (friendsleastFollowers.length + acquaintancesleastFollowers.length);
+
+    var canvasleastFollowers = d3.select("#leastfollowers")
+        .append("svg")
+        .attr("width", 360)
+        .attr("height", 460);//change to dynamic
+
+    var myCxleastFollowers = 360/2;
+    var myCyleastFollowers = 460/2;
+    var rValueleastFollowers = 20;
+
+    var rValueleastFollowers1 = 75;
+    var rValueleastFollowers2 = 150;
+
+    var friendsleastFollowersLines = canvasleastFollowers.selectAll("lines")
+        .data(friendsleastFollowers)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxleastFollowers + Math.cos(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyleastFollowers + Math.sin(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("x2", myCxleastFollowers)
+        .attr("y2", myCyleastFollowers)
+        .attr("stroke-width", 1)
+        .attr("stroke", "black");
+
+    var bridgeDashesleastFollowers = canvasleastFollowers.selectAll("lines")
+        .data(bridgesleastFollowers)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("x2", myCxleastFollowers)
+        .attr("y2", myCyleastFollowers)
+        .style("stroke-dasharray", "5 5")
+        .attr("stroke", "black");
+
+    var bridgeToAcquaintancesDashesleastFollowers = canvasleastFollowers.selectAll("lines")
+        .data(bridgesleastFollowers)
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) {
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("y1", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("x2", function (d, i) {
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+        })
+        .attr("y2", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+        })
+        .style("stroke-dasharray", "5 5")
+        .attr("stroke", "black");
+
+    var circle = canvasleastFollowers.append("circle")
+        .attr("cx", myCxleastFollowers)
+        .attr("cy", myCyleastFollowers)
+        .attr("r", rValueleastFollowers)
+        .style("fill", "black");
+
+    canvasleastFollowers.append("text")
+        .text("you")
+        .attr("x", myCxleastFollowers - 15)
+        .attr("y", myCyleastFollowers)
+        .style('fill', 'white');
+
+    var friendsleastFollowersPetals = canvasleastFollowers.selectAll("circles")
+        .data(friendsleastFollowers)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i){
+            return myCxleastFollowers + Math.cos(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("cy", function (d, i) {
+            return myCyleastFollowers + Math.sin(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("r", rValueleastFollowers)
+        .style("fill", "red");
+		
+	var friendsleastFollowersPetalsText = canvasleastFollowers.selectAll("circles")
+        .data(friendsleastFollowers)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCxleastFollowers + Math.cos(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("y", function (d, i) {
+            return myCyleastFollowers + Math.sin(i * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .style("fill", "black");
+
+    var acquaintancesleastFollowersPetals = canvasleastFollowers.selectAll("circles")
+        .data(acquaintancesleastFollowers)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+
+        })
+        .attr("cy", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+        })
+        .attr("r", rValueleastFollowers)
+        .style("fill", "red");
+		
+	var acquaintancesleastFollowersPetalsText = canvasleastFollowers.selectAll("circles")
+        .data(acquaintancesleastFollowers)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+        })
+        .attr("y", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
+        })
+        .style("fill", "black");
+
+
+    var bridgesleastFollowersPetals = canvasleastFollowers.selectAll("circles")
+        .data(bridgesleastFollowers)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+
+        })
+        .attr("cy", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("r", rValueleastFollowers)
+        .style("fill", "gray");
+		
+	var bridgesleastFollowersPetalsText = canvasleastFollowers.selectAll("circles")
+        .data(bridgesleastFollowers)
+        .enter()
+		.append("text")
+        .text(function(d) { return d; })
+        .attr("x", function (d, i){
+            return myCxleastFollowers + Math.cos((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .attr("y", function (d, i) {
+            return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers1;
+        })
+        .style("fill", "black");
+		
+		}
+	});
+	});
+	
+	// end least followers
 		
 
 		

@@ -48,6 +48,10 @@ app.get('/api/filters/mostfollowers', function(req, res) {
 	res.send(JSON.stringify(result));
 });
 
+app.get('/api/filters/leastfollowers', function(req, res) {
+	res.send(JSON.stringify(req.user.twitter.followers));
+});
+
 app.get('/api/filters/mostactive', function(req, res) {
 	res.send(JSON.stringify(req.user.twitter.followers));
 });
