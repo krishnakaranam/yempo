@@ -45,6 +45,9 @@
     <link href="css/freelancer.min.css" rel="stylesheet">
 	
 	<script>
+        var friendsInYourArea = [];
+        var acquaintancesInYourArea = [];
+        var bridgesInYourArea = [];
 	
 	$(function(){
 	$.ajax({
@@ -1191,9 +1194,7 @@
 		}});
 		});
 		
-		var friendsInYourArea = ["C", "D", "C", "D", "O"];
-    var acquaintancesInYourArea = ["B", "F", "H"];
-    var bridgesInYourArea = ["A", "E", "G"];
+
     var angleInYourArea = 360/ (friendsInYourArea.length + acquaintancesInYourArea.length);
 
     var canvasInYourArea = d3.select("#inYourArea")
