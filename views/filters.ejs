@@ -523,7 +523,7 @@
                 console.log(selectedData[0]);
                 var i = acquaintancesInYourArea.indexOf(selectedData[0]);
                 if(i != -1) {
-                    array.splice(i, 1);
+                    acquaintancesInYourArea.splice(i, 1);
                 }
                 console.log(acquaintancesInYourArea);
                 return d3.select(this).style("fill", color);
