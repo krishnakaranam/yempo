@@ -1206,6 +1206,8 @@
         console.log(bridgesInYourArea);
         var angleInYourArea = 360 / (friendsInYourArea.length + acquaintancesInYourArea.length);
 
+        d3.select("#inYourArea").remove();
+
         var canvasInYourArea = d3.select("#inYourArea")
             .append("svg")
             .attr("width", 360)
