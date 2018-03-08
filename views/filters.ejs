@@ -506,8 +506,8 @@
 
     function toggleColor(color){
         var currentColor = color;
+        console.log("the color is ",color);
         return function(){
-            //acquaintancesInYourArea = acquaintancesInYourArea.contains(element) ? acquaintancesInYourArea.pop(element) : acquaintancesInYourArea.push(element);
 
             var col = d3.select(this).style('fill').toString();
             console.log("col is ",col);
@@ -526,6 +526,7 @@
                 var selectedData = d3.select(this).data();
                 console.log(selectedData[0]);
                 console.log("un-selected");
+                console.log("the current color is ",currentColor);
                 return d3.select(this).style("fill", currentColor);
 			}
         }
