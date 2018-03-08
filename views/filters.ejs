@@ -50,10 +50,6 @@
         var acquaintancesInYourArea = [];
         var bridgesInYourArea = [];
 
-        function clicked() {
-            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
-        }
-
 	$(function(){
 	$.ajax({
 		type: 'GET',
@@ -425,7 +421,7 @@
 	  </a>
 	</div>
 	</section>
-	  
+
 	  
 
     <!-- Footer -->
@@ -1369,8 +1365,12 @@
             .attr("r", rValueInYourArea)
             .style("fill", "gray");
     }
-		
-</script>
+
+    function clicked() {
+        InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+    }
+
+    </script>
 	
   </body>
 
