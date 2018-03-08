@@ -174,12 +174,13 @@
             return myCy + Math.sin((friends.length + i) * Math.PI * angle / 180) * rValue2;
         })
         .attr("r", rValue)
+        .style("fill", "red")
 		.on('click', function(d, i) {
             acquaintancesInYourArea.push(acquaintances[i]);
             //bridgesInYourArea.push(bridges[i]);
             InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
-        })
-        .style("fill", "red");
+            toggleColor("red");
+        });
 		
 	var acquaintancesPetalsText = canvas.selectAll("circles")
         .data(acquaintances)
@@ -638,19 +639,18 @@
         .append("circle")
         .attr("cx", function (d, i) {
             return myCxGateway + Math.cos((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway2;
-
         })
         .attr("cy", function (d, i) {
             return myCyGateway + Math.sin((friendsGateway.length + i) * Math.PI * angleGateway / 180) * rValueGateway2;
         })
         .attr("r", rValueGateway)
+        .style("fill", "royalblue")
 		.on('click', function(d, i) {
             acquaintancesInYourArea.push(acquaintancesGateway[i]);
             //bridgesInYourArea.push(bridgesGateway[i]);
             InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
-        })
-        .style("fill", "royalblue")
-		.on("click", toggleColor("royalblue"));
+            toggleColor("royalblue");
+        });
 		
 	var acquaintancesGatewayPetalsText = canvasGateway.selectAll("circles")
         .data(acquaintancesGateway)
@@ -820,7 +820,13 @@
             return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
         })
         .attr("r", rValueleastFollowers)
-        .style("fill", "lavender");
+        .style("fill", "deepskyblue")
+		.on('click', function(d, i) {
+            acquaintancesInYourArea.push(acquaintancesleastFollowers[i]);
+            //bridgesInYourArea.push(bridges[i]);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+            toggleColor("deepskyblue");
+        });
 		
 	var acquaintancesleastFollowersPetalsText = canvasleastFollowers.selectAll("circles")
         .data(acquaintancesleastFollowers)
@@ -996,7 +1002,13 @@
             return myCyActive + Math.sin((friendsActive.length + i) * Math.PI * angleActive / 180) * rValueActive2;
         })
         .attr("r", rValueActive)
-        .style("fill", "orange");
+        .style("fill", "orange")
+        .on('click', function(d, i) {
+            acquaintancesInYourArea.push(acquaintancesActive[i]);
+            //bridgesInYourArea.push(bridges[i]);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+            toggleColor("orange");
+        });
 		
 	var acquaintancesActivePetalsText = canvasActive.selectAll("circles")
         .data(acquaintancesActive)
@@ -1167,7 +1179,13 @@
             return myCyInteractive + Math.sin((friendsInteractive.length + i) * Math.PI * angleInteractive / 180) * rValueInteractive2;
         })
         .attr("r", rValueInteractive)
-        .style("fill", "forestgreen");
+        .style("fill", "forestgreen")
+        .on('click', function(d, i) {
+            acquaintancesInYourArea.push(acquaintancesInteractive[i]);
+            //bridgesInYourArea.push(bridges[i]);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+            toggleColor("forestgreen");
+        });
 		
 	var acquaintancesInteractivePetalsText = canvasInteractive.selectAll("circles")
         .data(acquaintancesInteractive)
