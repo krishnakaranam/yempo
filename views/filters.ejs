@@ -1206,8 +1206,11 @@
         console.log(bridgesInYourArea);
         var angleInYourArea = 360 / (friendsInYourArea.length + acquaintancesInYourArea.length);
 
+        var inYourArea = d3.select("#inYourArea");
+        var insideSVG = inYourArea.select("svg");
+        insideSVG.remove();
+
         var canvasInYourArea = d3.select("#inYourArea")
-            .empty()
             .append("svg")
             .attr("width", 360)
             .attr("height", 460);//change to dynamic
