@@ -507,7 +507,15 @@
     <script src="js/freelancer.min.js"></script>
 
 	<script>
-	
+
+    function toggleColor(color){
+        var currentColor = color;
+
+        return function(){
+            currentColor = currentColor == color ? "magenta" : color;
+            return d3.select(this).style("fill", currentColor);
+        }
+    };
 	
 	$(function(){
 	$.ajax({
@@ -641,7 +649,8 @@
             //bridgesInYourArea.push(bridgesGateway[i]);
             InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
         })
-        .style("fill", "red");
+        .style("fill", "royalblue")
+		.on("click", toggleColor("royalblue"));
 		
 	var acquaintancesGatewayPetalsText = canvasGateway.selectAll("circles")
         .data(acquaintancesGateway)
@@ -696,7 +705,7 @@
 		url: '/api/filters/leastfollowers',
 		success: function(data){
 		var leastfollowers = JSON.parse(data);
-		
+		console.log("these are the least followers");
 		console.log(leastfollowers);
 		
 		var acquaintancesleastFollowers = leastfollowers.map(a => a.screen_name);
@@ -706,7 +715,7 @@
     
     var angleleastFollowers = 360/ (friendsleastFollowers.length + acquaintancesleastFollowers.length);
 
-    var canvasleastFollowers = d3.select("#leastfollowers")
+    var canvasleastFollowers = d3.select("#leastFollowers")
         .append("svg")
         .attr("width", 360)
         .attr("height", 460);//change to dynamic
@@ -811,7 +820,7 @@
             return myCyleastFollowers + Math.sin((friendsleastFollowers.length + i) * Math.PI * angleleastFollowers / 180) * rValueleastFollowers2;
         })
         .attr("r", rValueleastFollowers)
-        .style("fill", "red");
+        .style("fill", "lavender");
 		
 	var acquaintancesleastFollowersPetalsText = canvasleastFollowers.selectAll("circles")
         .data(acquaintancesleastFollowers)
@@ -987,7 +996,7 @@
             return myCyActive + Math.sin((friendsActive.length + i) * Math.PI * angleActive / 180) * rValueActive2;
         })
         .attr("r", rValueActive)
-        .style("fill", "red");
+        .style("fill", "orange");
 		
 	var acquaintancesActivePetalsText = canvasActive.selectAll("circles")
         .data(acquaintancesActive)
@@ -1158,7 +1167,7 @@
             return myCyInteractive + Math.sin((friendsInteractive.length + i) * Math.PI * angleInteractive / 180) * rValueInteractive2;
         })
         .attr("r", rValueInteractive)
-        .style("fill", "red");
+        .style("fill", "forestgreen");
 		
 	var acquaintancesInteractivePetalsText = canvasInteractive.selectAll("circles")
         .data(acquaintancesInteractive)
@@ -1172,7 +1181,6 @@
             return myCyInteractive + Math.sin((friendsInteractive.length + i) * Math.PI * angleInteractive / 180) * rValueInteractive2;
         })
         .style("fill", "black");
-
 
     var bridgesInteractivePetals = canvasInteractive.selectAll("circles")
         .data(bridgesInteractive)
