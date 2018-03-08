@@ -634,8 +634,7 @@
 		.on('click', function(d, i) {
             acquaintancesInYourArea.push(acquaintancesGateway[i]);
             bridgesInYourArea.push(bridgesGateway[i]);
-            console.log(acquaintancesInYourArea);
-            console.log(bridgesInYourArea);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea);
         })
         .style("fill", "red");
 		
@@ -1202,7 +1201,9 @@
 
     setTimeout(InYourArea, 1000);
 
-    function InYourArea() {
+    function InYourArea(acquaintancesInYourArea,bridgesInYourArea) {
+        console.log(acquaintancesInYourArea);
+        console.log(bridgesInYourArea);
         var angleInYourArea = 360 / (friendsInYourArea.length + acquaintancesInYourArea.length);
 
         var canvasInYourArea = d3.select("#inYourArea")
