@@ -45,10 +45,15 @@
     <link href="css/freelancer.min.css" rel="stylesheet">
 	
 	<script>
+
         var friendsInYourArea = [];
         var acquaintancesInYourArea = [];
         var bridgesInYourArea = [];
-	
+
+        function clicked() {
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+        }
+
 	$(function(){
 	$.ajax({
 		type: 'GET',
@@ -280,7 +285,7 @@
 			<div class="row">
 			<div class ="col-1"><p> </p></div>
 			<div class="col-4">
-				<button class="button">+</button>
+				<button class="button" onclick="clicked()">+</button>
 			</div>
 			<div class="col-7">
 				<p>Select a petal to add a person to your dandelion</p>
@@ -304,7 +309,7 @@
 			<div class="row">
 			<div class ="col-1"><p> </p></div>
 			<div class="col-4">
-				<button class="button">+</button>
+				<button class="button" onclick="clicked()">+</button>
 			</div>
 			<div class="col-7">
 				<p>Select a petal to add a person to your dandelion</p>
@@ -328,7 +333,7 @@
 			<div class="row">
 			<div class ="col-1"><p> </p></div>
 			<div class="col-4">
-				<button class="button">+</button>
+				<button class="button" onclick="clicked()">+</button>
 			</div>
 			<div class="col-7">
 				<p>Select a petal to add a person to your dandelion</p>
@@ -352,7 +357,7 @@
 			<div class="row">
 			<div class ="col-1"><p> </p></div>
 			<div class="col-4">
-				<button class="button">+</button>
+				<button class="button" onclick="clicked()">+</button>
 			</div>
 			<div class="col-7">
 				<p>Select a petal to add a person to your dandelion</p>
@@ -376,7 +381,7 @@
 			<div class="row">
 			<div class ="col-1"><p> </p></div>
 			<div class="col-4">
-				<button class="button">+</button>
+				<button class="button" onclick="clicked()">+</button>
 			</div>
 			<div class="col-7">
 				<p>Select a petal to add a person to your dandelion</p>
@@ -388,7 +393,7 @@
 		  
 		  <div class="carousel-item">
 		  <div class="container">
-			<h2 class="text-center text-uppercase text-secondary mb-0">In Your Area</h2>
+			<h2 class="text-center text-uppercase text-secondary mb-0">Create Dandelion</h2>
 			<div class="row">
 			  <div class="col-lg-8 mx-auto">
 				<div class="row justify-content-center">
@@ -420,7 +425,6 @@
 	  </a>
 	</div>
 	</section>
-	  
 	  
 	  
 
@@ -514,23 +518,19 @@
 			if(colStr != magenta){
                 currentColor = "magenta";
                 var selectedData = d3.select(this).data();
-                console.log(selectedData[0]);
                 acquaintancesInYourArea.push(selectedData[0]);
-                console.log(acquaintancesInYourArea);
                 return d3.select(this).style("fill", currentColor);
 			} else {
                 var selectedData = d3.select(this).data();
-                console.log(selectedData[0]);
                 var i = acquaintancesInYourArea.indexOf(selectedData[0]);
                 if(i != -1) {
                     acquaintancesInYourArea.splice(i, 1);
                 }
-                console.log(acquaintancesInYourArea);
                 return d3.select(this).style("fill", color);
 			}
         }
     };
-	
+
 	$(function(){
 	$.ajax({
 		type: 'GET',
