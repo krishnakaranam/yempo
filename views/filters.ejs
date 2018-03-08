@@ -508,7 +508,12 @@
         var currentColor = color;
         return function(){
             //acquaintancesInYourArea = acquaintancesInYourArea.contains(element) ? acquaintancesInYourArea.pop(element) : acquaintancesInYourArea.push(element);
-            if(currentColor != "magenta"){
+
+            var col = d3.select(this).style('fill').toString();
+            var colStr = d3.rgb(col).toString();
+            var magenta = d3.rgb("magenta").toString();
+
+			if(colStr != magenta){
                 currentColor = "magenta";
                 var selectedData = d3.select(this).data();
                 console.log("selected");
