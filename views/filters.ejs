@@ -506,29 +506,27 @@
 
     function toggleColor(color){
         var currentColor = color;
-        console.log("the color is ",color);
         return function(){
-
             var col = d3.select(this).style('fill').toString();
-            console.log("col is ",col);
             var colStr = d3.rgb(col).toString();
-            console.log("colStr is ",colStr);
             var magenta = d3.rgb("magenta").toString();
-            console.log("magenta is ",magenta);
 
 			if(colStr != magenta){
                 currentColor = "magenta";
                 var selectedData = d3.select(this).data();
-                console.log("selected");
                 console.log(selectedData[0]);
+                acquaintancesInYourArea.push(selectedData[0]);
+                console.log(acquaintancesInYourArea);
                 return d3.select(this).style("fill", currentColor);
 			} else {
                 var selectedData = d3.select(this).data();
                 console.log(selectedData[0]);
-                console.log("un-selected");
-                console.log("the current color is ",currentColor);
-                console.log("the color is ",color);
-                return d3.select(this).style("fill", currentColor);
+                var i = acquaintancesInYourArea.indexOf(selectedData[0]);
+                if(i != -1) {
+                    array.splice(i, 1);
+                }
+                console.log(acquaintancesInYourArea);
+                return d3.select(this).style("fill", color);
 			}
         }
     };
