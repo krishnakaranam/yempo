@@ -1228,7 +1228,7 @@
         var rValueInYourArea2 = 150;
 
         var friendsInYourAreaLines = canvasInYourArea.selectAll("lines")
-            .data(friendsInYourArea)
+            .data(acquaintancesInYourArea)
             .enter()
             .append("line")
             .attr("x1", function (d, i) {
@@ -1243,7 +1243,7 @@
             .attr("stroke", "black");
 
         var bridgeDashesInYourArea = canvasInYourArea.selectAll("lines")
-            .data(bridgesInYourArea)
+            .data(acquaintancesInYourArea)
             .enter()
             .append("line")
             .attr("x1", function (d, i) {
@@ -1258,7 +1258,7 @@
             .attr("stroke", "black");
 
         var bridgeToacquaintancesInYourAreaDashes = canvasInYourArea.selectAll("lines")
-            .data(bridgesInYourArea)
+            .data(acquaintancesInYourArea)
             .enter()
             .append("line")
             .attr("x1", function (d, i) {
@@ -1343,7 +1343,6 @@
             .append("circle")
             .attr("cx", function (d, i) {
                 return myCxInYourArea + Math.cos((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
-
             })
             .attr("cy", function (d, i) {
                 return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea1;
