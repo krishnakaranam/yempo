@@ -1224,6 +1224,7 @@
     function InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea) {
         //console.log(acquaintancesInYourArea);
         //console.log(bridgesInYourArea);
+        console.log("acquaintancesInYourArea inside is  ",acquaintancesInYourArea);
         var angleInYourArea = 360 / (friendsInYourArea.length + acquaintancesInYourArea.length);
 
         var inYourArea = d3.select("#inYourArea");
@@ -1367,6 +1368,7 @@
     }
 
     function clicked() {
+        console.log("acquaintancesInYourArea is ",acquaintancesInYourArea);
         InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
     }
 
