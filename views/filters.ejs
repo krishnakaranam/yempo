@@ -176,8 +176,8 @@
         .attr("r", rValue)
 		.on('click', function(d, i) {
             acquaintancesInYourArea.push(acquaintances[i]);
-            bridgesInYourArea.push(acquaintances[i]);
-            InYourArea(acquaintancesInYourArea,bridgesInYourArea);
+            bridgesInYourArea.push(bridges[i]);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
         })
         .style("fill", "red");
 		
@@ -639,7 +639,7 @@
 		.on('click', function(d, i) {
             acquaintancesInYourArea.push(acquaintancesGateway[i]);
             bridgesInYourArea.push(bridgesGateway[i]);
-            InYourArea(acquaintancesInYourArea,bridgesInYourArea);
+            InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
         })
         .style("fill", "red");
 		
@@ -1204,9 +1204,9 @@
 		}});
 		});
 
-    setTimeout(InYourArea, 1000);
+    //setTimeout(InYourArea, 1000);
 
-    function InYourArea(acquaintancesInYourArea,bridgesInYourArea) {
+    function InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea) {
         console.log(acquaintancesInYourArea);
         console.log(bridgesInYourArea);
         var angleInYourArea = 360 / (friendsInYourArea.length + acquaintancesInYourArea.length);
