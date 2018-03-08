@@ -508,9 +508,18 @@
         var currentColor = color;
         return function(){
             //acquaintancesInYourArea = acquaintancesInYourArea.contains(element) ? acquaintancesInYourArea.pop(element) : acquaintancesInYourArea.push(element);
-            currentColor = currentColor == color ? "magenta" : color;
-            console.log(d3.select(this).data());
-            return d3.select(this).style("fill", currentColor);
+            if(currentColor != "magenta"){
+                currentColor = "magenta";
+                var selectedData = d3.select(this).data();
+                console.log("selected");
+                console.log(selectedData[0]);
+                return d3.select(this).style("fill", currentColor);
+			} else {
+                var selectedData = d3.select(this).data();
+                console.log(selectedData[0]);
+                console.log("un-selected");
+                return d3.select(this).style("fill", currentColor);
+			}
         }
     };
 	
