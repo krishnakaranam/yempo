@@ -510,8 +510,11 @@
             //acquaintancesInYourArea = acquaintancesInYourArea.contains(element) ? acquaintancesInYourArea.pop(element) : acquaintancesInYourArea.push(element);
 
             var col = d3.select(this).style('fill').toString();
+            console.log("col is ",col);
             var colStr = d3.rgb(col).toString();
+            console.log("colStr is ",colStr);
             var magenta = d3.rgb("magenta").toString();
+            console.log("magenta is ",magenta);
 
 			if(colStr != magenta){
                 currentColor = "magenta";
