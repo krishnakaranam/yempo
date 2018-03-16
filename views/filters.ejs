@@ -49,6 +49,7 @@
         var friendsInYourArea = [];
         var acquaintancesInYourArea = [];
         var bridgesInYourArea = [];
+        var colorsInYourArea = [];
 
 	$(function(){
 	$.ajax({
@@ -515,12 +516,14 @@
                 currentColor = "magenta";
                 var selectedData = d3.select(this).data();
                 acquaintancesInYourArea.push(selectedData[0]);
+                colorsInYourArea.push(color);
                 return d3.select(this).style("fill", currentColor);
 			} else {
                 var selectedData = d3.select(this).data();
                 var i = acquaintancesInYourArea.indexOf(selectedData[0]);
                 if(i != -1) {
                     acquaintancesInYourArea.splice(i, 1);
+                    colorsInYourArea.splice(i, 1);
                 }
                 return d3.select(this).style("fill", color);
 			}
@@ -1221,7 +1224,7 @@
 
     //setTimeout(InYourArea, 1000);
 
-    function InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea) {
+    function InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea,colorsInYourArea) {
         //console.log(acquaintancesInYourArea);
         //console.log(bridgesInYourArea);
         console.log("acquaintancesInYourArea inside is  ",acquaintancesInYourArea);
@@ -1338,7 +1341,9 @@
                 return myCyInYourArea + Math.sin((friendsInYourArea.length + i) * Math.PI * angleInYourArea / 180) * rValueInYourArea2;
             })
             .attr("r", rValueInYourArea)
-            .style("fill", "red");
+            .style("fill", function(d, i) {
+                return colour[colorsInYourArea[i]];
+            });
 
         var acquaintancesInYourAreaPetalsText = canvasInYourArea.selectAll("circles")
             .data(acquaintancesInYourArea)
@@ -1369,7 +1374,7 @@
 
     function clicked() {
         console.log("acquaintancesInYourArea is ",acquaintancesInYourArea);
-        InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea);
+        InYourArea(acquaintancesInYourArea,bridgesInYourArea,friendsInYourArea,colorsInYourArea);
     }
 
     </script>
