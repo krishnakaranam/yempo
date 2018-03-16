@@ -1342,7 +1342,7 @@
             })
             .attr("r", rValueInYourArea)
             .style("fill", function(d, i) {
-                return colour[colorsInYourArea[i]];
+                return colorsInYourArea[i];
             });
 
         var acquaintancesInYourAreaPetalsText = canvasInYourArea.selectAll("circles")
