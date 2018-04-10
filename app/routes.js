@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
     });
 
 	// temp change
-	app.get('/api/filters', isLoggedIn, function(req, res) {
+	app.get('/filters', isLoggedIn, function(req, res) {
         res.send(req.user);
     });
 	
