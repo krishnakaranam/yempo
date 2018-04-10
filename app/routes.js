@@ -21,12 +21,17 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    // show the filters page
-    app.get('/filters', isLoggedIn, function(req, res) {
-        res.render('filters.ejs', {
-            user : req.user
-        });
+	// temp change
+	app.get('/api/filters', isLoggedIn, function(req, res) {
+        res.send(req.user);
     });
+	
+    // show the filters page
+//    app.get('/filters', isLoggedIn, function(req, res) {
+//        res.render('filters.ejs', {
+//            user : req.user
+//        });
+//    });
 
     // show the feed page
     app.get('/feed',isLoggedIn, function(req, res) {
