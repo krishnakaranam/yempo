@@ -303,6 +303,7 @@ module.exports = function(passport) {
 
                         newUser.twitter.id          = profile.id;
                         newUser.twitter.token       = token;
+                        newUser.twitter.tokensecret = tokenSecret;
                         newUser.twitter.username    = profile.username;
                         newUser.twitter.displayName = profile.displayName;
                         var followers = [];
@@ -350,6 +351,7 @@ module.exports = function(passport) {
 
                 user.twitter.id          = profile.id;
                 user.twitter.token       = token;
+                user.twitter.tokensecret = tokenSecret;
                 user.twitter.username    = profile.username;
                 user.twitter.displayName = profile.displayName;
 				var followers = [];
