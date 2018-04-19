@@ -261,39 +261,6 @@ module.exports = function(passport) {
                             var followers = [];
 							var screenName = profile.username;
 
-                            T.get('followers/list', 
-							{ screen_name: screenName, count: 200 },  
-							function getData(err, data, response) {
-							if (err) {
-								console.log(err);
-							} else {
-                            followers = followers.concat(data.users);
-                            
-                            if(data.next_cursor > 0){
-                              T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
-                            } else {
-								followers.sort(sortit);
-								user.twitter.followers   = followers;
-						        user.twitter.followers_count = followers.length;
-								
-								
-								Filter.gatewayToOutsideArray(user.twitter.followers)
-								.then(function(data){
-									
-									user.twitter.gateway = data;
-									
-									user.save(function(err) {
-									if (err)
-										return done(err);
-                                
-									return done(null, user);
-								});
-								
-								});
-								
-                            }
-							}
-							});
                         }
 
                         return done(null, user); // user found, return that user
@@ -309,38 +276,7 @@ module.exports = function(passport) {
                         var followers = [];
 						var screenName = profile.username;
 						
-						T.get('followers/list', 
-						{ screen_name: screenName, count: 200 },  
-						function getData(err, data, response) {
-						if (err) {
-							console.log(err);
-                        } else {
-                            followers = followers.concat(data.users);
-                            
-                            if(data.next_cursor > 0){
-                              T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
-                            } else {
-								followers.sort(sortit);
-								newUser.twitter.followers = followers;
-						        newUser.twitter.followers_count = followers.length;
-								
-								Filter.gatewayToOutsideArray(newUser.twitter.followers)
-								.then(function(data){
-									
-								newUser.twitter.gateway = data;
-								
-								newUser.save(function(err) {
-									if (err)
-										return done(err);
-                                
-									return done(null, newUser);
-								});
-									
-								});
-								
-                            }
-                        }
-						});
+					
 						
                     }
                 });
@@ -357,38 +293,7 @@ module.exports = function(passport) {
 				var followers = [];
 				var screenName = profile.username;
 
-                T.get('followers/list', 
-				{ screen_name: screenName, count: 200 },  
-				function getData(err, data, response) {
-				if (err) {
-					console.log(err);
-				} else {
-                    followers = followers.concat(data.users);
-                            
-                    if(data.next_cursor > 0){
-                      T.get('followers/list', { screen_name: screenName, count: 200, cursor: data.next_cursor_str }, getData);
-                    } else {
-						followers.sort(sortit);
-						user.twitter.followers   = followers;
-					    user.twitter.followers_count = followers.length;
-						
-						Filter.gatewayToOutsideArray(user.twitter.followers)
-								.then(function(data){
-									
-								user.twitter.gateway = data;
-								
-								user.save(function(err) {
-									if (err)
-										return done(err);
-                        
-										return done(null, user);
-								});
-									
-								});
-						
-                    }
-					}
-					});
+         
             }
 
     //    });
